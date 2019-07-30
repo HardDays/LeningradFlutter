@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Кургальский.kml</name>
+		<typeZone>3</typeZone>
+    <centerZone>59.643705272759,28.288840464939</centerZone>
+	<StyleMap id="m_ylw-pushpin">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#s_ylw-pushpin</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#s_ylw-pushpin_hl</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="s_ylw-pushpin_hl">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+   <color>FF0022FF</color>
+   <width>2</width>
+  </LineStyle>
+  <PolyStyle>
+   <color>FFFFFFFF</color>
+  </PolyStyle>
+	</Style>
+	<Style id="s_ylw-pushpin">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+   <color>FF0022FF</color>
+   <width>2</width>
+  </LineStyle>
+  <PolyStyle>
+   <color>FFFFFFFF</color>
+  </PolyStyle>
+	</Style>
+	<Placemark>
+		<name>Кургальский</name>
+		<styleUrl>#m_ylw-pushpin</styleUrl>
+		<Polygon>
+			<tessellate>1</tessellate>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+					59.641897,28.076420,0,
+					59.643024,28.086548,0,
+					59.641463,28.099594,0,
+					59.642417,28.104916,0,
+					59.643892,28.111267,0,
+					59.647275,28.110065,0,
+					59.647535,28.076763,0,
+					59.646061,28.077450,0,
+					59.645540,28.075047,0,
+					59.644065,28.074017,0,
+					59.641897,28.075905,0
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+</Document>
+</kml>

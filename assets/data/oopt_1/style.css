@@ -1,0 +1,91 @@
+@charset "UTF-8";
+/* CSS Document */
+a {
+	text-decoration:none}
+
+body {
+	margin:0}
+td {
+	line-height:11pt;
+	padding-left:10pt;
+	padding-right:10pt;
+	padding-top:10pt;
+	padding-bottom:10pt;
+	font-family: Helvetica;
+	font-size: 9pt;
+	color: #8e8e8e;}
+
+div {
+	line-height:11pt;
+	font-family: Helvetica;
+	font-size: 9pt;
+	color: #8e8e8e;}
+
+ul {
+	padding:0pt;}
+	
+#bg{
+	padding-left:10pt;
+	padding-right:10pt;
+	padding-top:10pt;
+	padding-bottom:10pt;
+	background-color: #ffffff;
+}
+
+#bg1{
+	padding-left:10pt;
+	padding-right:10pt;
+	padding-top:10pt;
+	padding-bottom:2pt;
+	background-color: #ffffff;
+}
+
+#bg2{
+	padding-left:10pt;
+	padding-right:10pt;
+	padding-top:10pt;
+	padding-bottom:10pt;
+	color: #333333;
+	background-color: #f0f0f0;
+}
+
+#bg3{
+	padding-left:10pt;
+	padding-right:10pt;
+	padding-top:20pt;
+	padding-bottom:0pt;
+	background-color: #ffffff;
+}
+
+#bg4{
+	padding-left:10pt;
+	padding-right:10pt;
+	padding-top:0pt;
+	padding-bottom:10pt;
+	color: #333333;
+	background-color: #f0f0f0;
+}
+
+.p1 {
+	
+	padding-bottom:0pt;
+	}
+
+
+.header0{
+	line-height:16pt;
+	color: #333333;
+    font-size: 16pt;}
+	
+.header{
+    font-size: 14pt;}
+	
+.header2{
+	color: #333333;
+    font-size: 11pt;}
+    
+li {
+	padding-left:0pt;
+    margin: 0pt;
+	margin-left: 10pt;}
+    

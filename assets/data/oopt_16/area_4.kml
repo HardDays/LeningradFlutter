@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Лисинский.kml</name>
+		<typeZone>3</typeZone>
+    <centerZone>59.397144358608,30.905585709145</centerZone>
+	<StyleMap id="m_ylw-pushpin">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#s_ylw-pushpin</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#s_ylw-pushpin_hl</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="s_ylw-pushpin_hl">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+   <color>FF0022FF</color>
+   <width>2</width>
+  </LineStyle>
+  <PolyStyle>
+   <color>FFFFFFFF</color>
+  </PolyStyle>
+	</Style>
+	<Style id="s_ylw-pushpin">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+   <color>FF0022FF</color>
+   <width>2</width>
+  </LineStyle>
+  <PolyStyle>
+   <color>FFFFFFFF</color>
+  </PolyStyle>
+	</Style>
+	<Placemark>
+		<name>Лисинский</name>
+		<styleUrl>#m_ylw-pushpin</styleUrl>
+		<Polygon>
+			<tessellate>1</tessellate>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+					59.334105613778,30.723696776312,0, 59.327088397342,30.729876585882,0, 59.327702461839,30.731593199652,0, 59.330553329713,30.72944743244,0, 59.331167331378,30.733738966863,0, 59.333228541252,30.734425612371,0, 59.333886347777,30.732708998602,0, 59.333491665396,30.726700850408,0, 59.335508882558,30.724040099066,0, 59.335377328581,30.722580977362,0, 59.334105613778,30.723696776312,0
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+</Document>
+</kml>

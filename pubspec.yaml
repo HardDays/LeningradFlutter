@@ -1,0 +1,515 @@
+name: leningrad_green
+description: A new Flutter project.
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  rxdart: any
+  google_maps_flutter: ^0.5.19+2 
+  xml: ^3.2.0
+  webview_flutter: ^0.3.10+4
+  flutter_inappbrowser: ^1.2.1
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^0.1.2
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  assets:
+    - assets/images/intro/intro_pic4.jpg
+    - assets/images/intro/intro_pic5.jpg
+    - assets/images/intro/intro_pic6.jpg
+    - assets/images/intro/intro_pic7.jpg
+    - assets/images/intro/intro_pic8.jpg
+    - assets/images/intro/intro_pic9.jpg
+    - assets/images/intro/intro_pic10.jpg
+    - assets/images/intro/intro_pic11.jpg
+
+    - assets/images/logo/herb1.png
+    - assets/images/logo/herb2.png
+
+    - assets/images/icons/menu_icon1.png
+    - assets/images/icons/menu_icon2.png
+    - assets/images/icons/menu_icon3.png
+    - assets/images/icons/menu_icon4.png
+    - assets/images/icons/menu_icon5.png
+    - assets/images/icons/menu_icon6.png
+    - assets/images/icons/menu_icon1c.png
+    - assets/images/icons/menu_icon2c.png
+    - assets/images/icons/menu_icon3c.png
+    - assets/images/icons/menu_icon4c.png
+    - assets/images/icons/menu_icon5c.png
+    - assets/images/icons/menu_icon6c.png
+
+    - assets/images/icons/pin_1.png
+    - assets/images/icons/pin_2.png
+    - assets/images/icons/pin_3.png
+    - assets/images/icons/pin_4.png
+
+    - assets/data/oopt.json
+
+    - assets/data/oopt_1/style.css
+    - assets/data/oopt_1/area_1.kml
+    - assets/data/oopt_1/info.html
+    - assets/data/oopt_1/pic_1.jpg
+    - assets/data/oopt_1/pic_2.jpg
+    - assets/data/oopt_1/pic_3.jpg
+    - assets/data/oopt_1/pic_4.jpg
+    - assets/data/oopt_1/pic_5.jpg
+    - assets/data/oopt_1/pic_6.jpg
+    - assets/data/oopt_10/area_1.kml
+    - assets/data/oopt_10/info.html
+    - assets/data/oopt_10/pic_1.jpg
+    - assets/data/oopt_10/pic_2.jpg
+    - assets/data/oopt_10/pic_3.jpg
+    - assets/data/oopt_10/pic_4.jpg
+    - assets/data/oopt_10/pic_5.jpg
+    - assets/data/oopt_11/area_1.kml
+    - assets/data/oopt_11/area_2.kml
+    - assets/data/oopt_11/area_3.kml
+    - assets/data/oopt_11/area_4.kml
+    - assets/data/oopt_11/info.html
+    - assets/data/oopt_11/pic_1.jpg
+    - assets/data/oopt_11/pic_2.jpg
+    - assets/data/oopt_11/pic_3.jpg
+    - assets/data/oopt_11/pic_4.jpg
+    - assets/data/oopt_11/pic_5.jpg
+    - assets/data/oopt_12/area_1.kml
+    - assets/data/oopt_12/info.html
+    - assets/data/oopt_12/pic_1.jpg
+    - assets/data/oopt_12/pic_2.jpg
+    - assets/data/oopt_12/pic_3.jpg
+    - assets/data/oopt_12/pic_4.jpg
+    - assets/data/oopt_12/pic_5.jpg
+    - assets/data/oopt_12/pic_6.jpg
+    - assets/data/oopt_13/area_1.kml
+    - assets/data/oopt_13/area_2.kml
+    - assets/data/oopt_13/area_3.kml
+    - assets/data/oopt_13/area_4.kml
+    - assets/data/oopt_13/area_5.kml
+    - assets/data/oopt_13/area_6.kml
+    - assets/data/oopt_13/area_7.kml
+    - assets/data/oopt_13/area_8.kml
+    - assets/data/oopt_13/info.html
+    - assets/data/oopt_13/pic_1.jpg
+    - assets/data/oopt_13/pic_2.jpg
+    - assets/data/oopt_13/pic_3.jpg
+    - assets/data/oopt_13/pic_4.jpg
+    - assets/data/oopt_13/pic_5.jpg
+    - assets/data/oopt_13/pic_6.jpg
+    - assets/data/oopt_13/pic_7.jpg
+    - assets/data/oopt_13/pic_8.jpg
+    - assets/data/oopt_14/area_1.kml
+    - assets/data/oopt_14/info.html
+    - assets/data/oopt_14/pic_1.jpg
+    - assets/data/oopt_14/pic_2.jpg
+    - assets/data/oopt_14/pic_3.jpg
+    - assets/data/oopt_14/pic_4.jpg
+    - assets/data/oopt_15/area_1.kml
+    - assets/data/oopt_15/info.html
+    - assets/data/oopt_15/pic_1.jpg
+    - assets/data/oopt_15/pic_2.jpg
+    - assets/data/oopt_15/pic_3.jpg
+    - assets/data/oopt_15/pic_4.jpg
+    - assets/data/oopt_15/pic_5.jpg
+    - assets/data/oopt_15/pic_6.jpg
+    - assets/data/oopt_15/pic_7.jpg
+    - assets/data/oopt_16/area_1.kml
+    - assets/data/oopt_16/area_2.kml
+    - assets/data/oopt_16/area_3.kml
+    - assets/data/oopt_16/area_4.kml
+    - assets/data/oopt_16/info.html
+    - assets/data/oopt_16/pic_1.jpg
+    - assets/data/oopt_16/pic_2.jpg
+    - assets/data/oopt_16/pic_3.jpg
+    - assets/data/oopt_16/pic_4.jpg
+    - assets/data/oopt_16/pic_5.jpg
+    - assets/data/oopt_16/pic_6.jpg
+    - assets/data/oopt_16/pic_7.jpg
+    - assets/data/oopt_17/area_1.kml
+    - assets/data/oopt_17/info.html
+    - assets/data/oopt_17/pic_1.jpg
+    - assets/data/oopt_17/pic_2.jpg
+    - assets/data/oopt_17/pic_3.jpg
+    - assets/data/oopt_17/pic_4.jpg
+    - assets/data/oopt_17/pic_5.jpg
+    - assets/data/oopt_17/pic_6.jpg
+    - assets/data/oopt_18/area_1.kml
+    - assets/data/oopt_18/info.html
+    - assets/data/oopt_18/pic_1.jpg
+    - assets/data/oopt_18/pic_2.jpg
+    - assets/data/oopt_18/pic_3.jpg
+    - assets/data/oopt_18/pic_4.jpg
+    - assets/data/oopt_18/pic_5.jpg
+    - assets/data/oopt_19/area_1.kml
+    - assets/data/oopt_19/info.html
+    - assets/data/oopt_19/pic_1.jpg
+    - assets/data/oopt_19/pic_2.jpg
+    - assets/data/oopt_19/pic_3.jpg
+    - assets/data/oopt_19/pic_4.jpg
+    - assets/data/oopt_19/pic_5.jpg
+    - assets/data/oopt_19/pic_6.jpg
+    - assets/data/oopt_19/pic_7.jpg
+    - assets/data/oopt_19/pic_8.jpg
+    - assets/data/oopt_19/pic_9.jpg
+    - assets/data/oopt_2/area_1.kml
+    - assets/data/oopt_2/info.html
+    - assets/data/oopt_2/pic_1.jpg
+    - assets/data/oopt_2/pic_2.jpg
+    - assets/data/oopt_2/pic_3.jpg
+    - assets/data/oopt_2/pic_4.jpg
+    - assets/data/oopt_20/area_1.kml
+    - assets/data/oopt_20/info.html
+    - assets/data/oopt_20/pic_1.jpg
+    - assets/data/oopt_20/pic_2.jpg
+    - assets/data/oopt_20/pic_3.jpg
+    - assets/data/oopt_20/pic_4.jpg
+    - assets/data/oopt_20/pic_5.jpg
+    - assets/data/oopt_21/area_1.kml
+    - assets/data/oopt_21/info.html
+    - assets/data/oopt_21/pic_1.jpg
+    - assets/data/oopt_21/pic_2.jpg
+    - assets/data/oopt_21/pic_3.jpg
+    - assets/data/oopt_21/pic_4.jpg
+    - assets/data/oopt_21/pic_5.jpg
+    - assets/data/oopt_21/pic_6.jpg
+    - assets/data/oopt_22/area_1.kml
+    - assets/data/oopt_22/info.html
+    - assets/data/oopt_22/pic_1.jpg
+    - assets/data/oopt_22/pic_2.jpg
+    - assets/data/oopt_22/pic_3.jpg
+    - assets/data/oopt_22/pic_4.jpg
+    - assets/data/oopt_22/pic_5.jpg
+    - assets/data/oopt_22/pic_6.jpg
+    - assets/data/oopt_23/area_1.kml
+    - assets/data/oopt_23/info.html
+    - assets/data/oopt_23/pic_1.jpg
+    - assets/data/oopt_23/pic_2.jpg
+    - assets/data/oopt_23/pic_3.jpg
+    - assets/data/oopt_23/pic_4.jpg
+    - assets/data/oopt_24/area_1.kml
+    - assets/data/oopt_24/info.html
+    - assets/data/oopt_24/pic_1.jpg
+    - assets/data/oopt_24/pic_2.jpg
+    - assets/data/oopt_24/pic_3.jpg
+    - assets/data/oopt_24/pic_4.jpg
+    - assets/data/oopt_24/pic_5.jpg
+    - assets/data/oopt_25/area_1.kml
+    - assets/data/oopt_25/info.html
+    - assets/data/oopt_25/pic_1.jpg
+    - assets/data/oopt_25/pic_2.jpg
+    - assets/data/oopt_25/pic_3.jpg
+    - assets/data/oopt_25/pic_4.jpg
+    - assets/data/oopt_26/area_1.kml
+    - assets/data/oopt_26/info.html
+    - assets/data/oopt_26/pic_1.jpg
+    - assets/data/oopt_26/pic_2.jpg
+    - assets/data/oopt_26/pic_3.jpg
+    - assets/data/oopt_26/pic_4.jpg
+    - assets/data/oopt_27/area_1.kml
+    - assets/data/oopt_27/info.html
+    - assets/data/oopt_27/pic_1.jpg
+    - assets/data/oopt_27/pic_2.jpg
+    - assets/data/oopt_27/pic_3.jpg
+    - assets/data/oopt_27/pic_4.jpg
+    - assets/data/oopt_28/area_1.kml
+    - assets/data/oopt_28/info.html
+    - assets/data/oopt_28/pic_1.jpg
+    - assets/data/oopt_28/pic_2.jpg
+    - assets/data/oopt_28/pic_3.jpg
+    - assets/data/oopt_28/pic_4.jpg
+    - assets/data/oopt_28/pic_5.jpg
+    - assets/data/oopt_28/pic_6.jpg
+    - assets/data/oopt_28/pic_7.jpg
+    - assets/data/oopt_28/pic_8.jpg
+    - assets/data/oopt_29/area_1.kml
+    - assets/data/oopt_29/info.html
+    - assets/data/oopt_29/pic_1.jpg
+    - assets/data/oopt_29/pic_2.jpg
+    - assets/data/oopt_29/pic_3.jpg
+    - assets/data/oopt_29/pic_4.jpg
+    - assets/data/oopt_29/pic_5.jpg
+    - assets/data/oopt_29/pic_6.jpg
+    - assets/data/oopt_3/area_1.kml
+    - assets/data/oopt_3/info.html
+    - assets/data/oopt_3/pic_1.jpg
+    - assets/data/oopt_3/pic_2.jpg
+    - assets/data/oopt_3/pic_3.jpg
+    - assets/data/oopt_3/pic_4.jpg
+    - assets/data/oopt_3/pic_5.jpg
+    - assets/data/oopt_30/area_1.kml
+    - assets/data/oopt_30/info.html
+    - assets/data/oopt_30/pic_1.jpg
+    - assets/data/oopt_30/pic_2.jpg
+    - assets/data/oopt_30/pic_3.jpg
+    - assets/data/oopt_30/pic_4.jpg
+    - assets/data/oopt_30/pic_5.jpg
+    - assets/data/oopt_30/pic_6.jpg
+    - assets/data/oopt_30/pic_7.jpg
+    - assets/data/oopt_31/area_1.kml
+    - assets/data/oopt_31/info.html
+    - assets/data/oopt_31/pic_1.jpg
+    - assets/data/oopt_31/pic_2.jpg
+    - assets/data/oopt_31/pic_3.jpg
+    - assets/data/oopt_31/pic_4.jpg
+    - assets/data/oopt_31/pic_5.jpg
+    - assets/data/oopt_31/pic_6.jpg
+    - assets/data/oopt_32/area_1.kml
+    - assets/data/oopt_32/info.html
+    - assets/data/oopt_32/pic_1.jpg
+    - assets/data/oopt_32/pic_2.jpg
+    - assets/data/oopt_32/pic_3.jpg
+    - assets/data/oopt_32/pic_4.jpg
+    - assets/data/oopt_32/pic_5.jpg
+    - assets/data/oopt_32/pic_6.jpg
+    - assets/data/oopt_33/area_1.kml
+    - assets/data/oopt_33/info.html
+    - assets/data/oopt_33/pic_1.jpg
+    - assets/data/oopt_33/pic_2.jpg
+    - assets/data/oopt_33/pic_3.jpg
+    - assets/data/oopt_33/pic_4.jpg
+    - assets/data/oopt_33/pic_5.jpg
+    - assets/data/oopt_34/area_1.kml
+    - assets/data/oopt_34/info.html
+    - assets/data/oopt_34/pic_1.jpg
+    - assets/data/oopt_34/pic_2.jpg
+    - assets/data/oopt_34/pic_3.jpg
+    - assets/data/oopt_34/pic_4.jpg
+    - assets/data/oopt_34/pic_5.jpg
+    - assets/data/oopt_34/pic_6.jpg
+    - assets/data/oopt_34/pic_7.jpg
+    - assets/data/oopt_34/pic_8.jpg
+    - assets/data/oopt_35/area_1.kml
+    - assets/data/oopt_35/area_2.kml
+    - assets/data/oopt_35/area_3.kml
+    - assets/data/oopt_35/info.html
+    - assets/data/oopt_35/pic_1.jpg
+    - assets/data/oopt_35/pic_2.jpg
+    - assets/data/oopt_35/pic_3.jpg
+    - assets/data/oopt_35/pic_4.jpg
+    - assets/data/oopt_35/pic_5.jpg
+    - assets/data/oopt_35/pic_6.jpg
+    - assets/data/oopt_35/pic_7.jpg
+    - assets/data/oopt_35/pic_8.jpg
+    - assets/data/oopt_36/area_1.kml
+    - assets/data/oopt_36/info.html
+    - assets/data/oopt_36/pic_1.jpg
+    - assets/data/oopt_36/pic_2.jpg
+    - assets/data/oopt_36/pic_3.jpg
+    - assets/data/oopt_36/pic_4.jpg
+    - assets/data/oopt_36/pic_5.jpg
+    - assets/data/oopt_36/pic_6.jpg
+    - assets/data/oopt_36/pic_7.jpg
+    - assets/data/oopt_37/area_1.kml
+    - assets/data/oopt_37/info.html
+    - assets/data/oopt_37/pic_1.jpg
+    - assets/data/oopt_37/pic_2.jpg
+    - assets/data/oopt_37/pic_3.jpg
+    - assets/data/oopt_37/pic_4.jpg
+    - assets/data/oopt_37/pic_5.jpg
+    - assets/data/oopt_38/area_1.kml
+    - assets/data/oopt_38/info.html
+    - assets/data/oopt_38/pic_1.jpg
+    - assets/data/oopt_38/pic_2.jpg
+    - assets/data/oopt_38/pic_3.jpg
+    - assets/data/oopt_38/pic_4.jpg
+    - assets/data/oopt_38/pic_5.jpg
+    - assets/data/oopt_38/pic_6.jpg
+    - assets/data/oopt_39/area_1.kml
+    - assets/data/oopt_39/info.html
+    - assets/data/oopt_39/pic_1.jpg
+    - assets/data/oopt_39/pic_2.jpg
+    - assets/data/oopt_39/pic_3.jpg
+    - assets/data/oopt_39/pic_4.jpg
+    - assets/data/oopt_39/pic_5.jpg
+    - assets/data/oopt_39/pic_6.jpg
+    - assets/data/oopt_39/pic_7.jpg
+    - assets/data/oopt_39/pic_8.jpg
+    - assets/data/oopt_4/area_1.kml
+    - assets/data/oopt_4/info.html
+    - assets/data/oopt_4/pic_1.jpg
+    - assets/data/oopt_4/pic_2.jpg
+    - assets/data/oopt_4/pic_3.jpg
+    - assets/data/oopt_4/pic_4.jpg
+    - assets/data/oopt_4/pic_5.jpg
+    - assets/data/oopt_40/area_1.kml
+    - assets/data/oopt_40/info.html
+    - assets/data/oopt_40/pic_1.jpg
+    - assets/data/oopt_40/pic_2.jpg
+    - assets/data/oopt_40/pic_3.jpg
+    - assets/data/oopt_40/pic_4.jpg
+    - assets/data/oopt_40/pic_5.jpg
+    - assets/data/oopt_40/pic_6.jpg
+    - assets/data/oopt_40/pic_7.jpg
+    - assets/data/oopt_40/pic_8.jpg
+    - assets/data/oopt_41/area_1.kml
+    - assets/data/oopt_41/info.html
+    - assets/data/oopt_41/pic_1.jpg
+    - assets/data/oopt_41/pic_2.jpg
+    - assets/data/oopt_41/pic_3.jpg
+    - assets/data/oopt_41/pic_4.jpg
+    - assets/data/oopt_42/area_1.kml
+    - assets/data/oopt_42/info.html
+    - assets/data/oopt_42/pic_1.jpg
+    - assets/data/oopt_42/pic_2.jpg
+    - assets/data/oopt_42/pic_3.jpg
+    - assets/data/oopt_42/pic_4.jpg
+    - assets/data/oopt_42/pic_5.jpg
+    - assets/data/oopt_5/area_1.kml
+    - assets/data/oopt_5/info.html
+    - assets/data/oopt_5/pic_1.jpg
+    - assets/data/oopt_5/pic_2.jpg
+    - assets/data/oopt_5/pic_3.jpg
+    - assets/data/oopt_5/pic_4.jpg
+    - assets/data/oopt_5/pic_5.jpg
+    - assets/data/oopt_5/pic_6.jpg
+    - assets/data/oopt_5/pic_7.jpg
+    - assets/data/oopt_5/pic_8.jpg
+    - assets/data/oopt_6/area_1.kml
+    - assets/data/oopt_6/info.html
+    - assets/data/oopt_6/pic_1.jpg
+    - assets/data/oopt_6/pic_2.jpg
+    - assets/data/oopt_6/pic_3.jpg
+    - assets/data/oopt_6/pic_4.jpg
+    - assets/data/oopt_6/pic_5.jpg
+    - assets/data/oopt_6/pic_6.jpg
+    - assets/data/oopt_6/pic_7.jpg
+    - assets/data/oopt_6/pic_8.jpg
+    - assets/data/oopt_6/pic_9.jpg
+    - assets/data/oopt_7/area_1.kml
+    - assets/data/oopt_7/info.html
+    - assets/data/oopt_7/pic_1.jpg
+    - assets/data/oopt_7/pic_2.jpg
+    - assets/data/oopt_7/pic_3.jpg
+    - assets/data/oopt_7/pic_4.jpg
+    - assets/data/oopt_7/pic_5.jpg
+    - assets/data/oopt_7/pic_6.jpg
+    - assets/data/oopt_7/pic_7.jpg
+    - assets/data/oopt_7/pic_8.jpg
+    - assets/data/oopt_8/area_1.kml
+    - assets/data/oopt_8/info.html
+    - assets/data/oopt_8/pic_1.jpg
+    - assets/data/oopt_8/pic_2.jpg
+    - assets/data/oopt_8/pic_3.jpg
+    - assets/data/oopt_8/pic_4.jpg
+    - assets/data/oopt_8/pic_5.jpg
+    - assets/data/oopt_8/pic_6.jpg
+    - assets/data/oopt_8/pic_7.jpg
+    - assets/data/oopt_8/pic_8.jpg
+    - assets/data/oopt_9/area_1.kml
+    - assets/data/oopt_9/info.html
+    - assets/data/oopt_9/pic_1.jpg
+    - assets/data/oopt_9/pic_2.jpg
+    - assets/data/oopt_9/pic_3.jpg
+    - assets/data/oopt_9/pic_4.jpg
+    - assets/data/oopt_9/pic_5.jpg
+    - assets/data/oopt_9/pic_6.jpg
+    - assets/data/oopt_9/pic_7.jpg
+    - assets/data/src/btn_1.png
+    - assets/data/src/btn_2.png
+    - assets/data/src/btn_3.png
+    - assets/data/src/btn_4.png
+    - assets/data/src/grad_bottom.png
+    - assets/data/src/grad_top.png
+    - assets/data/src/icon_1.png
+    - assets/data/src/icon_10.png
+    - assets/data/src/icon_11.png
+    - assets/data/src/icon_12.png
+    - assets/data/src/icon_13.png
+    - assets/data/src/icon_14.png
+    - assets/data/src/icon_15.png
+    - assets/data/src/icon_16.png
+    - assets/data/src/icon_17.png
+    - assets/data/src/icon_18.png
+    - assets/data/src/icon_19.png
+    - assets/data/src/icon_2.png
+    - assets/data/src/icon_20.png
+    - assets/data/src/icon_21.png
+    - assets/data/src/icon_22.png
+    - assets/data/src/icon_23.png
+    - assets/data/src/icon_24.png
+    - assets/data/src/icon_25.png
+    - assets/data/src/icon_26.png
+    - assets/data/src/icon_27.png
+    - assets/data/src/icon_28.png
+    - assets/data/src/icon_29.png
+    - assets/data/src/icon_3.png
+    - assets/data/src/icon_30.png
+    - assets/data/src/icon_31.png
+    - assets/data/src/icon_32.png
+    - assets/data/src/icon_33.png
+    - assets/data/src/icon_34.png
+    - assets/data/src/icon_35.png
+    - assets/data/src/icon_36.png
+    - assets/data/src/icon_37.png
+    - assets/data/src/icon_38.png
+    - assets/data/src/icon_39.png
+    - assets/data/src/icon_4.png
+    - assets/data/src/icon_40.png
+    - assets/data/src/icon_41.png
+    - assets/data/src/icon_42.png
+    - assets/data/src/icon_5.png
+    - assets/data/src/icon_6.png
+    - assets/data/src/icon_7.png
+    - assets/data/src/icon_8.png
+    - assets/data/src/icon_9.png
+    - assets/data/src/logo_001.png
+    - assets/data/src/logo_002.png
+    - assets/data/src/logo_003.png
+    - assets/data/src/style.css
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Музей-Усадьба-Н.К.Рериха.kml</name>
+		<typeZone>2</typeZone>
+    <centerZone>59.35030341056,29.527492260403</centerZone>
+	<StyleMap id="m_ylw-pushpin">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#s_ylw-pushpin</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#s_ylw-pushpin_hl</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="s_ylw-pushpin_hl">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+   <color>FF0022FF</color>
+   <width>2</width>
+  </LineStyle>
+  <PolyStyle>
+   <color>44FF2200</color>
+  </PolyStyle>
+	</Style>
+	<Style id="s_ylw-pushpin">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+   <color>FF0022FF</color>
+   <width>2</width>
+  </LineStyle>
+  <PolyStyle>
+   <color>44FF2200</color>
+  </PolyStyle>
+	</Style>
+	<Placemark>
+		<name>Музей-Усадьба-Н.К.Рериха</name>
+		<styleUrl>#m_ylw-pushpin</styleUrl>
+		<Polygon>
+			<tessellate>1</tessellate>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+					59.348994338952,29.529534969184,0, 59.34989291933,29.526230487677,0, 59.349388840593,29.525286350104,0, 59.349586089689,29.524556789252,0, 59.350221662286,29.525329265448,0, 59.350638065445,29.523569736334,0, 59.351766711367,29.524814281317,0, 59.352240621863,29.523140582892,0, 59.353328125488,29.524256381842,0, 59.353125419656,29.522475395056,0, 59.353817526324,29.519910419451,0, 59.354507802744,29.520597064959,0, 59.354606412532,29.520232284533,0, 59.355318585668,29.521154964434,0, 59.355362411218,29.518665874469,0, 59.353105321585,29.516412818896,0, 59.353346377175,29.515490138995,0, 59.353280634912,29.512486064898,0, 59.352842349891,29.512679183947,0, 59.352908093007,29.514867866503,0, 59.35256841887,29.514996612536,0, 59.35256841887,29.515232646929,0, 59.352250656106,29.515382850634,0, 59.351910975369,29.512700641619,0, 59.350453596725,29.512850845324,0, 59.348196803947,29.511535182293,0, 59.348021464275,29.512908473308,0, 59.346706387764,29.512307658489,0, 59.346026911546,29.51423884898,0, 59.345522775204,29.518659129436,0, 59.34596115505,29.518659129436,0, 59.345939236211,29.530031695659,0, 59.348613232026,29.529988780315,0, 59.348994338952,29.529534969184,0
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+</Document>
+</kml>

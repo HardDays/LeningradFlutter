@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Кургальский.kml</name>
+		<typeZone>3</typeZone>
+    <centerZone>59.643705272759,28.288840464939</centerZone>
+	<StyleMap id="m_ylw-pushpin">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#s_ylw-pushpin</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#s_ylw-pushpin_hl</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="s_ylw-pushpin_hl">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+   <color>FF0022FF</color>
+   <width>2</width>
+  </LineStyle>
+  <PolyStyle>
+   <color>FFFFFFFF</color>
+  </PolyStyle>
+	</Style>
+	<Style id="s_ylw-pushpin">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+   <color>FF0022FF</color>
+   <width>2</width>
+  </LineStyle>
+  <PolyStyle>
+   <color>FFFFFFFF</color>
+  </PolyStyle>
+	</Style>
+	<Placemark>
+		<name>Кургальский</name>
+		<styleUrl>#m_ylw-pushpin</styleUrl>
+		<Polygon>
+			<tessellate>1</tessellate>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+					59.653780,28.029900,0,
+					59.653910,28.032818,0,
+					59.656079,28.032904,0,
+					59.656252,28.032560,0,
+					59.656209,28.031101,0,
+					59.659851,28.030415,0,
+					59.659937,28.032303,0,
+					59.663276,28.031960,0,
+					59.663536,28.030930,0,
+					59.664316,28.031015,0,
+					59.664620,28.031273,0,
+					59.665963,28.031788,0,
+					59.666137,28.030415,0,
+					59.663362,28.028097,0,
+					59.663449,28.027239,0,
+					59.662842,28.026638,0,
+					59.662539,28.027067,0,
+					59.660068,28.027239,0,
+					59.659764,28.027153,0,
+					59.659504,28.026552,0,
+					59.658030,28.026381,0,
+					59.656772,28.026638,0,
+					59.656729,28.028011,0,
+					59.655688,28.028526,0,
+					59.655775,28.029642,0,
+					59.653824,28.029642,0,
+					59.653737,28.029728,0
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+</Document>
+</kml>
