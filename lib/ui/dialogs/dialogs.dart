@@ -72,8 +72,78 @@ class Dialogs {
       );
     }
   }
+
+  static Future showYesNo(BuildContext context, String title, String body, String yes, String no, Function onYes, Function onNo) async {
+    return showThemed(context, 
+      Container(
+        width: MediaQuery.of(context).size.width * 0.8,
+        padding: EdgeInsets.only(left: 20, top: 20, bottom: 10, right: 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.only(top: 15)),
+                    Text(body,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15
+                      ),
+                    ),
+                  ]
+                )
+              ),
+            ),
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(top: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  FlatButton(
+                    child: Text(yes,
+                      style: TextStyle(
+                        color: AppColors.blue
+                      )
+                    ),
+                    onPressed: () {
+                      hide(context);
+                      onYes();
+                    },
+                  ),
+                  FlatButton(
+                    child: Text(no,
+                      style: TextStyle(
+                        color: AppColors.blue
+                      )
+                    ),
+                    onPressed: () {
+                      hide(context);
+                      onNo();
+                    },
+                  )
+                ],
+              )
+            )
+          ]
+        ),
+      )
+    );
+  }
   
-  static Future showMessage(BuildContext context, String title, String body, String ok, {double width}) async {
+  static Future showMessage(BuildContext context, String title, String body, String ok, {double width, Function onOk}) async {
     return showThemed(context, 
       Container(
         width: width ?? MediaQuery.of(context).size.width * 0.8,
@@ -122,6 +192,9 @@ class Dialogs {
                 ),
                 onPressed: () {
                   hide(context);
+                  if (onOk != null) {
+                    onOk();
+                  }
                 },
               )
             )

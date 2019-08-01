@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:xml/xml.dart' as xml;
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 import '../models/oopt.dart';
 import '../models/oopt_image.dart';
@@ -56,9 +58,23 @@ class OoptProvider {
     for (final imgs in body) {
       final List<OoptImage> res = [];
       for (final img in imgs) {
-        res.add(OoptImage(author: img['author'], link: ooptPath + img['oopt_id'].toString() + '/pic_${img['id']}.jpg'));
+        final link = ooptPath + img['oopt_id'].toString() + '/pic_${img['id']}.jpg';
+        res.add(OoptImage(author: img['author'], link: link));
       }
       result.add(res);
+    }
+    return result;
+  }
+
+  static Future<List<Uint8List>> compressImages(List<Oopt> oopt) async {
+    final List<Uint8List> result = [];
+    for (final oopt in oopt) {
+      final list = await FlutterImageCompress.compressAssetImage(oopt.images.first.link,
+        minHeight: 300,
+        minWidth: 300,
+        quality: 90
+      );
+      result.add(Uint8List.fromList(list));
     }
     return result;
   }

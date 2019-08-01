@@ -67,15 +67,38 @@ class ListPageState extends State<ListPage>  with AutomaticKeepAliveClientMixin 
   }
 
   Widget buildSearch() {
-
+    return Container(
+      height: 35,
+      margin: EdgeInsets.only(left: 7, right: 7, top: 10, bottom: 5),
+      child: TextField(
+        style: TextStyle(
+          fontSize: 16
+        ),
+        onChanged: (text) {
+          bloc.search(text);
+        },
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 10),
+          hintText: 'Поиск',
+          focusedBorder: OutlineInputBorder(  
+            borderRadius: BorderRadius.all(Radius.circular(5)),        
+            borderSide: BorderSide(color: Colors.grey.withOpacity(0.5)),   
+          ),
+          enabledBorder: OutlineInputBorder(    
+            borderRadius: BorderRadius.all(Radius.circular(5)),    
+            borderSide: BorderSide(color: Colors.grey.withOpacity(0.3)),   
+          ),   
+        ),
+      )
+    );
   }
 
   Widget buildList(List<Oopt> list) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Expanded(
-      child: SingleChildScrollView(
-        child: Column(
+      child: Container(
+        child: ListView(
           children: List.generate(list.length, 
             (index) {
               final oopt = list[index];
@@ -90,14 +113,19 @@ class ListPageState extends State<ListPage>  with AutomaticKeepAliveClientMixin 
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            child: Image(
-                              width: width * 0.3,
-                              height: width * 0.3,
-                              fit: BoxFit.cover,
-                              image: AssetImage(oopt.images.first.link),
-                            ),
+                          StreamBuilder(
+                            stream: bloc.compressedImages,
+                            builder: (BuildContext context, AsyncSnapshot<List<Uint8List>> snapshot) {
+                              return ClipRRect(
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                child: Image(
+                                  width: width * 0.3,
+                                  height: width * 0.3,
+                                  fit: BoxFit.cover,
+                                  image: bloc.compressedImages.value != null ? MemoryImage(bloc.compressedImages.value[index]) : AssetImage(oopt.images.first.link),
+                                )
+                              );
+                            }
                           ),
                           Flexible(
                             child: Container(
@@ -187,11 +215,12 @@ class ListPageState extends State<ListPage>  with AutomaticKeepAliveClientMixin 
       width: width,
       height: height,
       child: StreamBuilder(
-        stream: bloc.ootp,
+        stream: bloc.oopt,
         builder: (BuildContext context, AsyncSnapshot<List<Oopt>> snapshot) { 
           if (snapshot.hasData) {
             return Column(
               children: [
+                buildSearch(),
                 Padding(padding: EdgeInsets.only(top: 10)),
                 buildList(snapshot.data)
               ]

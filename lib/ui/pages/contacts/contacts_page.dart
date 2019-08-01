@@ -13,7 +13,7 @@ import '../../resources/app_colors.dart';
 
 import '../../../storage/repository.dart';
 
-class ContactsPage extends StatefulWidget {
+class ContactsPage extends StatefulWidget  {
   
   ContactsPage();
 
@@ -21,12 +21,15 @@ class ContactsPage extends StatefulWidget {
   ContactsPageState createState() => ContactsPageState();
 }
 
-class ContactsPageState extends State<ContactsPage> {
+class ContactsPageState extends State<ContactsPage> with AutomaticKeepAliveClientMixin {
 
   @override
   void initState() {
     super.initState(); 
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
   Widget buildHtml() {
     return Container(

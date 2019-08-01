@@ -29,7 +29,7 @@ class Markers {
     mapper[OoptCategory.naturalPark] = await createMarker('assets/images/icons/pin_1.png');
     mapper[OoptCategory.naturalMonument] = await createMarker('assets/images/icons/pin_2.png');
     mapper[OoptCategory.wildlifeSanctuary] = await createMarker('assets/images/icons/pin_3.png');
-    mapper['fire'] = await createMarker('assets/images/icons/pin_4.png');
+    mapper['fire'] = await createMarker('assets/images/icons/pin_4.png', width: 200, height: 200);
   }
 
   Future<ui.Image> load(String asset) async {
@@ -56,15 +56,15 @@ class Markers {
   //   placeMarker = data.buffer.asUint8List();
   // }
 
-  Future<Uint8List> createMarker(String path) async {
+  Future<Uint8List> createMarker(String path, {double width, double height}) async {
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
 
     final image = await load(path);
-    canvas.drawImageRect(image, Rect.fromLTRB(0, 0, image.width.toDouble(), image.height.toDouble()), Rect.fromLTRB(0, 0, 100, 100), Paint());
+    canvas.drawImageRect(image, Rect.fromLTRB(0, 0, image.width.toDouble(), image.height.toDouble()), Rect.fromLTRB(0, 0, width ?? 100, height ?? 100), Paint());
 
     final pic = recorder.endRecording();
-    final data = await (await pic.toImage(100, 100)).toByteData(format: ui.ImageByteFormat.png);
+    final data = await (await pic.toImage(width?.toInt() ?? 100, height?.toInt() ?? 100)).toByteData(format: ui.ImageByteFormat.png);
     return data.buffer.asUint8List();
   }
 }
