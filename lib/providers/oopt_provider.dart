@@ -5,10 +5,12 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:xml/xml.dart' as xml;
 
 import '../models/oopt.dart';
+import '../models/oopt_image.dart';
 
 class OoptProvider {
 
   static const listPath = 'assets/data/oopt.json';
+  static const imagesPath = 'assets/data/oopt_images.json';
   static const ooptPath = 'assets/data/oopt_';
   static const areaPath = '/area_1.kml';
   static const htmlPath = '/info.html';
@@ -17,20 +19,14 @@ class OoptProvider {
     final data = await rootBundle.loadString(listPath);
     final body = json.decode(data);
     
+    final images = await loadImages();
+
     List<Oopt> result = [];
     for (final oopt in body) {
       final points = await loadArea(oopt['id']);
-      result.add(Oopt.fromJson(oopt, points));
+      result.add(Oopt.fromJson(oopt, ooptPath + oopt['id'].toString() + htmlPath, images[oopt['id'] - 1], points));
     }
     return result;
-  }
-
-  static String htmlLink(int id) {;
-    return ooptPath + id.toString() + htmlPath;
-  }
-
-  static String imageLink(int id, int number) {;
-    return ooptPath + id.toString() + htmlPath;
   }
 
   static Future<List<Point>> loadArea(int id) async {
@@ -50,6 +46,26 @@ class OoptProvider {
     } catch (ex) {
       return [];
     }
+  }
+
+  static Future<List<List<OoptImage>>> loadImages() async {
+    final data = await rootBundle.loadString(imagesPath);
+    final body = json.decode(data);
+
+    List<List<OoptImage>> result = [];
+    for (final imgs in body) {
+      final List<OoptImage> res = [];
+      for (final img in imgs) {
+        res.add(OoptImage(author: img['author'], link: ooptPath + img['oopt_id'].toString() + '/pic_${img['id']}.jpg'));
+      }
+      result.add(res);
+    }
+    return result;
+  }
+
+
+  static String imageLink(int id, int number) {;
+    return ooptPath + id.toString() + htmlPath;
   }
 
 }

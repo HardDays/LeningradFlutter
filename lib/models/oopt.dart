@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'oopt_image.dart';
+
 class OoptCategory {
   static const String naturalPark = 'prirodniy_park';
   static const String naturalMonument = 'pamyatnik_prirodi';
@@ -12,6 +14,7 @@ class Oopt {
 
   final String name;
   final String category;
+  final String html;
 
   final DateTime date;
 
@@ -20,10 +23,11 @@ class Oopt {
   final double square;
 
   final List<Point> points;
+  final List<OoptImage> images;
 
-  Oopt({this.id, this.name, this.category, this.date, this.lat, this.lng, this.square, this.points = const []});
+  Oopt({this.id, this.name, this.html, this.category, this.date, this.lat, this.lng, this.square, this.images = const [], this.points = const []});
 
-  factory Oopt.fromJson(Map<String, dynamic> json, List<Point> points) {
+  factory Oopt.fromJson(Map<String, dynamic> json, String html, List<OoptImage> images, List<Point> points) {
     return Oopt(
       id: json['id'],
       name: json['name'],
@@ -32,7 +36,9 @@ class Oopt {
       lat: json['lat'],
       lng: json['lng'],
       square: json['square'],
-      points: points
+      html: html,
+      points: points,
+      images: images
     );
   }
 

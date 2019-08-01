@@ -2,12 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_inappbrowser/flutter_inappbrowser.dart';
 
-import 'oopt_bloc.dart';
-
-import '../fullscreen_images/fullscreen_images_page.dart';
+import 'fullscreen_images_bloc.dart';
 
 import '../../dialogs/dialogs.dart';
 
@@ -16,46 +14,62 @@ import '../../resources/app_colors.dart';
 import '../../../models/oopt.dart';
 import '../../../models/oopt_image.dart';
 
-import '../../../storage/repository.dart';
-
-class OoptPage extends StatefulWidget {
+class FullscreenImagesPage extends StatefulWidget {
+  final int currentImage;
   final Oopt oopt;
   
-  OoptPage(this.oopt);
+  FullscreenImagesPage(this.oopt, this.currentImage);
 
   @override
-  OoptPageState createState() => OoptPageState();
+  FullscreenImagesPageState createState() => FullscreenImagesPageState();
 }
 
-class OoptPageState extends State<OoptPage> {
+class FullscreenImagesPageState extends State<FullscreenImagesPage> {
 
-  final bloc = OoptPageBloc();
+  final bloc = FullscreenImagesBloc();
 
-  final imagesController = PageController();
-
-  //WebViewController controller;
+  PageController imagesController;
 
   @override
   void initState() {
     super.initState(); 
+
+    imagesController = PageController(initialPage: widget.currentImage);
+    bloc.changeImage(widget.currentImage);
+
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.landscapeRight,
+        //DeviceOrientation.landscapeLeft,
+      ]
+    );
+    SystemChrome.setEnabledSystemUIOverlays ([]);
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+      ]
+    );
+    SystemChrome.setEnabledSystemUIOverlays(
+      [
+        SystemUiOverlay.top,
+        SystemUiOverlay.bottom
+      ]
+    );
+    super.dispose(); 
   }
 
   void onInfo(OoptImage image) {
     Dialogs.showMessage(context, 'Автор', image.author, 'Закрыть');
   }
 
-  void onFullScreen() {
-    Navigator.push(context, MaterialPageRoute<Null>(builder: (t) => FullscreenImagesPage(widget.oopt, bloc.currentImage.value ?? 0)));
-  }
-
   PreferredSize buildAppBar() {
     return PreferredSize( 
-      preferredSize: Size(0, 50),
-      child: AppBar(
-        backgroundColor: AppColors.blue,
-        centerTitle: true,
-        title: Text('ООПТ'),
-      )
+      preferredSize: Size(0, 0),
+      child: AppBar()
     );
   }
 
@@ -64,13 +78,13 @@ class OoptPageState extends State<OoptPage> {
     final height = MediaQuery.of(context).size.height;
     return Container(
       width: width,
-      height: height * 0.3,
+      height: height,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
           PageView(
             onPageChanged: (index) {
-               bloc.changeImage(index);
+              bloc.changeImage(index);
             },
             controller: imagesController,
             children: List.generate(widget.oopt.images.length, 
@@ -79,7 +93,7 @@ class OoptPageState extends State<OoptPage> {
                   children: [
                     Image(
                       width: width,
-                      height: height * 0.3,
+                      height: height,
                       fit: BoxFit.cover,
                       image: AssetImage(widget.oopt.images[index].link),
                     ),
@@ -140,10 +154,12 @@ class OoptPageState extends State<OoptPage> {
                   )
                 ),
                 InkWell(
-                  onTap: onFullScreen,
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
                   child: Container(
                     padding: EdgeInsets.only(bottom: 5),
-                    child: Icon(CupertinoIcons.fullscreen,
+                    child: Icon(CupertinoIcons.fullscreen_exit,
                       color: Colors.white.withOpacity(0.75),
                       size: 28,
                     )
@@ -157,41 +173,13 @@ class OoptPageState extends State<OoptPage> {
     );
   }
 
-  Widget buildHtml() {
-    return Expanded(
-      child: InAppWebView(
-        initialFile: widget.oopt.html,
-        initialOptions: {
-          'textZoom': 100,
-          'useWideViewPort': false
-        },
-        onLoadStart: (controller, link) {
-          try {
-            final path = link.split('/').sublist(5).join('/');
-            if (path != widget.oopt.html) {
-              controller.stopLoading();
-              controller.loadFile(widget.oopt.html);
-            }
-          } catch (ex) {
-            controller.stopLoading();
-            controller.loadFile(widget.oopt.html);
-          }
-        },
-      )
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    for (final image in widget.oopt.images) {
-      precacheImage(AssetImage(image.link), context);
-    }
     return Scaffold(
       appBar: buildAppBar(),
       body: Column(
         children: <Widget>[
-          buildImages(),
-          buildHtml()
+          Expanded(child: buildImages())
         ],
       )
     );

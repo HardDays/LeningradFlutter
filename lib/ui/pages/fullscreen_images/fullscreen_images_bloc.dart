@@ -2,13 +2,13 @@ import 'package:rxdart/rxdart.dart';
 
 import '../../../storage/repository.dart';
 
-class OoptPageBloc {
+class FullscreenImagesBloc {
 
   final repository = Repository();
 
   BehaviorSubject<int> currentImage;
 
-  OoptPageBloc() {
+  FullscreenImagesBloc() {
     currentImage = BehaviorSubject<int>.seeded(0);
   }
 

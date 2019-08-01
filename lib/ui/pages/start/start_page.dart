@@ -32,11 +32,23 @@ class StartPageState extends State<StartPage> with SingleTickerProviderStateMixi
     'assets/images/intro/intro_pic11.jpg',
   ];
 
+  final controller = PageController();
+
   final bloc = StartPageBloc();
+
+  //Timer timer;
 
   @override
   void initState() {
     super.initState(); 
+
+    // timer = Timer.periodic(Duration(seconds: 5), 
+    //   (t) {
+    //     controller.animateToPage((controller.page.toInt() + 1) % images.length, duration: Duration(milliseconds: 700), curve: Curves.easeIn);
+    //   }
+    // );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => bloc.preloadImages(context, images));
   }
 
   @override
@@ -50,14 +62,34 @@ class StartPageState extends State<StartPage> with SingleTickerProviderStateMixi
     Navigator.pushReplacement(context, MaterialPageRoute<Null>(builder: (t) => MainPage()));
   }
 
+  Widget buildSplash() {
+    return Container(
+      child: Center(
+        child: Icon(Icons.category),
+      ),
+    );
+  }
+
   Widget buildBackground() {
     final height = MediaQuery.of(context).size.height;
+    // return PageView(
+    //   controller: controller,
+    //   children: List.generate(images.length,
+    //     (index) {
+    //       return Image(
+    //         fit: BoxFit.cover,
+    //         height: height,
+    //         image: AssetImage(images[index])
+    //       );
+    //     }
+    //   )
+    // );
     return StreamBuilder(
       stream: bloc.image,
       builder: (BuildContext context, AsyncSnapshot<int> snapshot) { 
         //ебучие костыли, т.к. нет нормального виджета с этой анимацией
         String first = images.first;
-        String second = images.first;
+        String second = images[1];
         bool odd = false;
         if (snapshot.hasData) {
           first = images[snapshot.data];
@@ -190,16 +222,24 @@ class StartPageState extends State<StartPage> with SingleTickerProviderStateMixi
 
   @override
   Widget build(BuildContext context) {
-    for (final image in images) {
-      precacheImage(AssetImage(image), context);
-    }
-    return Material(
-      child: Stack(
-        children: <Widget>[
-          buildBackground(),
-          buildLayer()
-        ],
-      )
+    return StreamBuilder(
+      stream: bloc.loaded,
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+        if (snapshot.hasData) {
+          return Material(
+            child: Stack(
+              children: <Widget>[
+                buildBackground(),
+                buildLayer()
+              ],
+            )
+          );
+        } else {
+          return Material(
+            child: buildSplash(),
+          );
+        }
+      }
     );
   }
 }

@@ -40,6 +40,8 @@ class MapPageState extends State<MapPage>  with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState(); 
+
+    bloc.load();
   }
 
   @override
@@ -62,7 +64,7 @@ class MapPageState extends State<MapPage>  with AutomaticKeepAliveClientMixin {
   }
 
   void onOopt(Oopt oopt) {
-    Navigator.push(context, MaterialPageRoute<Null>(builder: (t) => OoptPage(oopt.id)));
+    Navigator.push(context, MaterialPageRoute<Null>(builder: (t) => OoptPage(oopt)));
   }
 
   Marker buildMarker(Oopt oopt) {
@@ -87,27 +89,22 @@ class MapPageState extends State<MapPage>  with AutomaticKeepAliveClientMixin {
     );
   }
 
-  Widget buildMap() {
-    return StreamBuilder(
-      stream: bloc.ootp,
-      builder: (BuildContext context, AsyncSnapshot<List<Oopt>> snapshot) {
-        return GoogleMap(
-          mapType: MapType.normal,
-          initialCameraPosition: CameraPosition(
-            target: LatLng(59.90271, 30.24700),
-            zoom: 7,
-          ),
-          onTap: (p) {
-            bloc.hideInfoWindow();
-          },
-          onCameraMove: (p) {
-            bloc.hideInfoWindow();
-          },
-          onMapCreated: onMapComplete,
-          markers: snapshot.hasData ? snapshot.data.map((p) => buildMarker(p)).toSet() : Set<Marker>(),
-          polygons: snapshot.hasData ? snapshot.data.where((p) => p.points.isNotEmpty).map((p) => buildPolygon(p)).toSet() : Set<Polygon>(),
-        );
-      }
+  Widget buildMap(List<Oopt> oopt) {
+    return GoogleMap(
+      mapType: MapType.normal,
+      initialCameraPosition: CameraPosition(
+        target: LatLng(59.90271, 30.24700),
+        zoom: 7,
+      ),
+      onTap: (p) {
+        bloc.hideInfoWindow();
+      },
+      onCameraMove: (p) {
+        bloc.hideInfoWindow();
+      },
+      onMapCreated: onMapComplete,
+      markers: oopt.map((p) => buildMarker(p)).toSet(),
+      polygons: oopt.where((p) => p.points.isNotEmpty).map((p) => buildPolygon(p)).toSet(),
     );
   }
 
@@ -128,7 +125,7 @@ class MapPageState extends State<MapPage>  with AutomaticKeepAliveClientMixin {
                 onOopt(oopt);
               },
               child: Container(
-                padding: EdgeInsets.all(10),
+                width: width * 0.6,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(10))
@@ -141,10 +138,17 @@ class MapPageState extends State<MapPage>  with AutomaticKeepAliveClientMixin {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-
+                          ClipRRect(
+                            borderRadius: BorderRadius.only(topRight: Radius.circular(10), topLeft: Radius.circular(10)),
+                            child: Image(
+                              width: width * 0.6,
+                              height: height * 0.2,
+                              fit: BoxFit.cover,
+                              image: AssetImage(oopt.images.first.link),
+                            ),
                           ),
                           Container(
+                            padding: EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 3),
                             child: Text(snapshot.data.name,
                               maxLines: 2,
                               overflow: TextOverflow.clip,
@@ -153,12 +157,14 @@ class MapPageState extends State<MapPage>  with AutomaticKeepAliveClientMixin {
                               ),
                             )
                           ),
-                          Padding(padding: EdgeInsets.only(bottom: 3)),
-                          Text(categories[oopt.category],
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey
-                            ),
+                          Container(
+                            padding: EdgeInsets.only(left: 5, right: 5, bottom: 10),
+                            child: Text(categories[oopt.category],
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey
+                              ),
+                            )
                           )
                         ]
                       )
@@ -175,6 +181,18 @@ class MapPageState extends State<MapPage>  with AutomaticKeepAliveClientMixin {
     );
   }
 
+  Widget buildLoader() {
+    return Container(
+      alignment: Alignment.center,
+      child: Container(
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.transparent,
+          valueColor: AlwaysStoppedAnimation(AppColors.blue)
+        )
+      )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -182,11 +200,20 @@ class MapPageState extends State<MapPage>  with AutomaticKeepAliveClientMixin {
     return Container(
       width: width,
       height: height,
-      child: Stack(
-        children: [
-          buildMap(),
-          buildInfoWindow()
-        ]
+      child: StreamBuilder(
+        stream: bloc.ootp,
+        builder: (BuildContext context, AsyncSnapshot<List<Oopt>> snapshot) { 
+          if (snapshot.hasData) {
+            return Stack(
+              children: [
+                buildMap(snapshot.data),
+                buildInfoWindow()
+              ]
+            );
+          } else {
+            return buildLoader();
+          } 
+        }
       )
     );
   }

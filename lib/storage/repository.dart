@@ -21,8 +21,4 @@ class Repository {
     return cachedOopt;
   }
 
-  String getOotpLink(int id) {
-    return OoptProvider.htmlLink(id);
-  }
-
 }
