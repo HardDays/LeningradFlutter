@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'start_bloc.dart';
 
@@ -47,7 +48,17 @@ class StartPageState extends State<StartPage> with SingleTickerProviderStateMixi
     //     controller.animateToPage((controller.page.toInt() + 1) % images.length, duration: Duration(milliseconds: 700), curve: Curves.easeIn);
     //   }
     // );
-
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+      ]
+    );
+    SystemChrome.setEnabledSystemUIOverlays(
+      [
+        SystemUiOverlay.top,
+        SystemUiOverlay.bottom
+      ]
+    );
     WidgetsBinding.instance.addPostFrameCallback((_) => bloc.preloadImages(context, images));
   }
 

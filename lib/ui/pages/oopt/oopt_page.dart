@@ -33,7 +33,11 @@ class OoptPageState extends State<OoptPage> {
 
   final imagesController = PageController();
 
-  //WebViewController controller;
+  final categories = {
+    OoptCategory.naturalPark: 'Природный парк',
+    OoptCategory.naturalMonument: 'Памятник природы',
+    OoptCategory.wildlifeSanctuary: 'Заказник',
+  };
 
   @override
   void initState() {
@@ -157,26 +161,233 @@ class OoptPageState extends State<OoptPage> {
     );
   }
 
-  Widget buildHtml() {
-    return Expanded(
-      child: InAppWebView(
-        initialFile: widget.oopt.html,
-        initialOptions: {
-          'textZoom': 100,
-          'useWideViewPort': false
-        },
-        onLoadStart: (controller, link) {
-          try {
-            final path = link.split('/').sublist(5).join('/');
-            if (path != widget.oopt.html) {
-              controller.stopLoading();
-              controller.loadFile(widget.oopt.html);
-            }
-          } catch (ex) {
-            controller.stopLoading();
-            controller.loadFile(widget.oopt.html);
-          }
-        },
+  // Widget buildHtml() {
+  //   return Expanded(
+  //     child: InAppWebView(
+  //       initialFile: widget.oopt.html,
+  //       initialOptions: {
+  //         'textZoom': 100,
+  //         'useWideViewPort': false
+  //       },
+  //       onLoadStart: (controller, link) {
+  //         try {
+  //           final path = link.split('/').sublist(5).join('/');
+  //           if (path != widget.oopt.html) {
+  //             controller.stopLoading();
+  //             controller.loadFile(widget.oopt.html);
+  //           }
+  //         } catch (ex) {
+  //           controller.stopLoading();
+  //           controller.loadFile(widget.oopt.html);
+  //         }
+  //       },
+  //     )
+  //   );
+  // }
+
+  Widget buildBody() {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(top: 10, left: 15, right: 15),
+            child: Text(widget.oopt.name,
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w600
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 3, left: 15, right: 15),
+            child: Text(categories[widget.oopt.category],
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 10, left: 15, right: 15),
+            child: Text(widget.oopt.annotation,
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.black.withOpacity(0.75),
+                fontWeight: FontWeight.w300
+              ),
+            ),
+          ),
+          widget.oopt.objectives.isNotEmpty ? 
+          Container(
+            color: Colors.grey.withOpacity(0.3),
+            margin: EdgeInsets.only(top: 10),
+            padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Основные цели заказника:',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black.withOpacity(1),
+                    fontWeight: FontWeight.w500
+                  )
+                ),
+                Padding(padding: EdgeInsets.only(top: 3)),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: List.generate(widget.oopt.objectives.length, 
+                    (index) {
+                      return Container(
+                        padding: EdgeInsets.only(top: 3),
+                        child: Text('- ' + widget.oopt.objectives[index],
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black.withOpacity(1),
+                            fontWeight: FontWeight.w300
+                          ),
+                        )
+                      );
+                    }
+                  )
+                )
+              ]
+            )
+          ) :
+          Container(),
+          widget.oopt.features == null ?
+          Container() :
+          Container(
+            color: widget.oopt.objectives.isNotEmpty ? Colors.transparent : Colors.grey.withOpacity(0.3),
+            margin: EdgeInsets.only(top: 10),
+            padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
+            child: Text(widget.oopt.features,
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.black.withOpacity(1),
+                fontWeight: FontWeight.w300
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 10, left: 15, right: 15),
+            child: Text(widget.oopt.description,
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.black.withOpacity(0.75),
+                fontWeight: FontWeight.w300
+              ),
+            ),
+          ),
+          Container(
+            color: Colors.grey.withOpacity(0.3),
+            margin: EdgeInsets.only(top: 10),
+            padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),  
+            width: MediaQuery.of(context).size.width,          
+            child: Text('Правила для посетителей',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black.withOpacity(1),
+                fontWeight: FontWeight.w500
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 10, left: 12, right: 12),
+            child: Wrap(
+              children: List.generate(widget.oopt.ruleImages.length, 
+                (index) {
+                  return Container(
+                    padding: EdgeInsets.only(left: 3, right: 3, top: 3, bottom: 3),
+                    child: Image(
+                      width: MediaQuery.of(context).size.width * 0.2,
+                      height: MediaQuery.of(context).size.width * 0.2,
+                      image: AssetImage('assets/data/src/' + widget.oopt.ruleImages[index]),
+                    )
+                  );
+                }
+              )
+            )
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('На территории запрещается: ',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black.withOpacity(1),
+                    fontWeight: FontWeight.w500
+                  )
+                ),
+                Padding(padding: EdgeInsets.only(top: 3)),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: List.generate(widget.oopt.rules.length, 
+                    (index) {
+                      return Container(
+                        padding: EdgeInsets.only(top: 3),
+                        child: Text('- ' + widget.oopt.rules[index],
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black.withOpacity(1),
+                            fontWeight: FontWeight.w300
+                          ),
+                        )
+                      );
+                    }
+                  )
+                )
+              ]
+            )
+          ),
+          Container(
+            //color: Colors.grey.withOpacity(0.3),
+            padding: EdgeInsets.only(top: 5, left: 15, right: 15),  
+            width: MediaQuery.of(context).size.width,          
+            child: Text(widget.oopt.law,
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.black.withOpacity(1),
+                fontWeight: FontWeight.w300
+              ),
+            ),
+          ),
+          Container(
+            color: Colors.grey.withOpacity(0.3),
+            margin: EdgeInsets.only(top: 10),
+            padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),  
+            width: MediaQuery.of(context).size.width,          
+            child: Text('Нормативная правовая основа функционирования ООПТ',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black.withOpacity(1),
+                fontWeight: FontWeight.w500
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 5, bottom: 20, left: 15, right: 15),  
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: List.generate(widget.oopt.norm.length, 
+                (index) {
+                  return Container(
+                    padding: EdgeInsets.only(top: 7),
+                    child: Text(widget.oopt.norm[index],
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.black.withOpacity(1),
+                        fontWeight: FontWeight.w300
+                      ),
+                    )
+                  );
+                }
+              )
+            )
+          )
+        ],
       )
     );
   }
@@ -188,11 +399,14 @@ class OoptPageState extends State<OoptPage> {
     }
     return Scaffold(
       appBar: buildAppBar(),
-      body: Column(
-        children: <Widget>[
-          buildImages(),
-          buildHtml()
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            buildImages(),
+            buildBody()
+          ],
+        )
       )
     );
   }

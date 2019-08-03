@@ -130,7 +130,7 @@ class MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin  
         body: PageView(
           physics: NeverScrollableScrollPhysics(),
           controller: pageController,
-          children: pages
+          children: pages,
         ),
         bottomNavigationBar: StreamBuilder(
           stream: bloc.page,

@@ -32,7 +32,7 @@ class FirePageState extends State<FirePage>  with AutomaticKeepAliveClientMixin 
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        Timer(Duration(seconds: 2),
+        Timer(Duration(seconds: 4),
           () {
             if (!bloc.repository.readFireMessage && mounted) {
               Dialogs.showMessage(context, 'Сообщение о пожаре', 'Если функция определения местоположения активна, Вы можете отправить уведомление о пожаре, нажав на маркер краного "цвета. В появившемся информационном окне нажмите кнопку отправить для того чтобы проинформировать РПДУ о возникновении пожара в пределах вашего текущего местоположения.', 'Закрыть');

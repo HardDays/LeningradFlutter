@@ -15,6 +15,10 @@ class Oopt {
   final String name;
   final String category;
   final String html;
+  final String description;
+  final String annotation;
+  final String features;
+  final String law;
 
   final DateTime date;
 
@@ -24,8 +28,33 @@ class Oopt {
 
   final List<Point> points;
   final List<OoptImage> images;
+  final List<String> rules;
+  final List<String> ruleImages;
+  final List<String> objectives;
+  final List<String> norm;
 
-  Oopt({this.id, this.name, this.html, this.category, this.date, this.lat, this.lng, this.square, this.images = const [], this.points = const []});
+  Oopt(
+    {
+      this.id, 
+      this.name, 
+      this.html, 
+      this.category, 
+      this.date, 
+      this.lat, 
+      this.lng, 
+      this.square, 
+      this.description,
+      this.law,
+      this.annotation,
+      this.features,
+      this.images = const [], 
+      this.points = const [],
+      this.rules = const [],
+      this.ruleImages = const [],
+      this.objectives = const [],
+      this.norm = const []
+    }
+  );
 
   factory Oopt.fromJson(Map<String, dynamic> json, String html, List<OoptImage> images, List<Point> points) {
     return Oopt(
@@ -36,6 +65,14 @@ class Oopt {
       lat: json['lat'],
       lng: json['lng'],
       square: json['square'],
+      description: json['description'],
+      law: json['law'],
+      annotation: json['annotation'],
+      features: json['features'],
+      objectives: List<String>.from(json['objectives']),
+      ruleImages: List<String>.from(json['rule_images']),
+      rules: List<String>.from(json['rules']),
+      norm: List<String>.from(json['norm']),
       html: html,
       points: points,
       images: images

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 // import 'package:webview_flutter/webview_flutter.dart';
-import 'package:flutter_inappbrowser/flutter_inappbrowser.dart';
 
 import '../fullscreen_images/fullscreen_images_page.dart';
 
@@ -32,25 +31,30 @@ class ContactsPageState extends State<ContactsPage> with AutomaticKeepAliveClien
   bool get wantKeepAlive => true;
 
   Widget buildHtml() {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Container(
-      child: InAppWebView(
-        initialFile: 'assets/data/contacts/index.html',
-        initialOptions: {
-          'textZoom': 100,
-          'useWideViewPort': false
-        },
-        onLoadStart: (controller, link) {
-          try {
-            final path = link.split('/').sublist(5).join('/');
-            if (path != 'assets/data/contacts/index.html') {
-              controller.stopLoading();
-              controller.loadFile('assets/data/contacts/index.html');
-            }
-          } catch (ex) {
-            controller.stopLoading();
-            controller.loadFile('assets/data/contacts/index.html');
-          }
-        },
+      padding: EdgeInsets.only(top: 10),
+      child: Column(
+        children: <Widget>[
+          ExpansionTile(
+            title: Container(
+              child: Text('Дирекция особо охраняемых природных территорий Ленинградской области филиал Ленинградского областного государственного казенного учреждения Управление лесами Ленинградской области',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14
+                ),
+              ),
+            ),
+            children: <Widget>[ 
+              Container(
+                child: Image(
+                  image: AssetImage('assets/data/src/logo_4.jpg'),
+                ),
+              ),
+            ]
+          )
+        ],
       )
     );
   }
