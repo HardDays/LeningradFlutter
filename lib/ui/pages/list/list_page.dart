@@ -165,14 +165,14 @@ class ListPageState extends State<ListPage>  with AutomaticKeepAliveClientMixin 
                                       fontWeight: FontWeight.w400
                                     ),
                                   ),
-                                  Padding(padding: EdgeInsets.only(top: 7)),
-                                  Text('Местоположение: ',
-                                    style: TextStyle(
-                                      color: Colors.black.withOpacity(0.7),
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w300
-                                    ),
-                                  ),
+                                  // Padding(padding: EdgeInsets.only(top: 7)),
+                                  // Text('Местоположение: ',
+                                  //   style: TextStyle(
+                                  //     color: Colors.black.withOpacity(0.7),
+                                  //     fontSize: 13,
+                                  //     fontWeight: FontWeight.w300
+                                  //   ),
+                                  // ),
                                   Padding(padding: EdgeInsets.only(top: 2)),
                                   Text('Дата создания: ${DateFormat('dd.MM.yyy').format(oopt.date)}',
                                     style: TextStyle(

@@ -13,12 +13,14 @@ class MapPageBloc {
   final repository = Repository();
 
   bool canHide = false;
-  BehaviorSubject<List<Oopt>> ootp;
   BehaviorSubject<Oopt> infowindow;
+  BehaviorSubject<bool> satelite;
+  BehaviorSubject<List<Oopt>> ootp;
 
   MapPageBloc() {
     ootp = BehaviorSubject<List<Oopt>>();
     infowindow = BehaviorSubject<Oopt>();
+    satelite = BehaviorSubject<bool>.seeded(false);
   }
 
   void load() async {
@@ -26,6 +28,10 @@ class MapPageBloc {
 
     final data = await repository.getOotpList();
     ootp.sink.add(data);
+  }
+
+  void changeMapType() {
+    satelite.sink.add(!satelite.value);
   }
 
   void showInfoWindow(Oopt oopt) {

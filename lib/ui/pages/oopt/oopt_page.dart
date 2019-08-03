@@ -7,6 +7,7 @@ import 'package:flutter_inappbrowser/flutter_inappbrowser.dart';
 
 import 'oopt_bloc.dart';
 
+import '../map/map_page.dart';
 import '../fullscreen_images/fullscreen_images_page.dart';
 
 import '../../dialogs/dialogs.dart';
@@ -52,6 +53,24 @@ class OoptPageState extends State<OoptPage> {
     Navigator.push(context, MaterialPageRoute<Null>(builder: (t) => FullscreenImagesPage(widget.oopt, bloc.currentImage.value ?? 0)));
   }
 
+  void onMap() {
+    Navigator.push(context, 
+      MaterialPageRoute<Null>(
+        builder: (t) => Scaffold(
+          appBar: AppBar(
+            backgroundColor: AppColors.blue,
+            centerTitle: true,
+            title: Text('Карта'),
+          ),
+          body: MapPage(
+            oopt: widget.oopt,
+            controller: MapPageController(),
+          ),
+        )
+      )
+    );
+  }
+
   PreferredSize buildAppBar() {
     return PreferredSize( 
       preferredSize: Size(0, 50),
@@ -59,6 +78,21 @@ class OoptPageState extends State<OoptPage> {
         backgroundColor: AppColors.blue,
         centerTitle: true,
         title: Text('ООПТ'),
+        actions: <Widget>[
+           InkWell(
+             onTap: onMap,
+             child: Container(
+               color: Colors.transparent,
+               alignment: Alignment.center,
+               padding: EdgeInsets.only(right: 10, top: 5, left: 5, bottom: 5),
+               child: Text('На карте',
+                 style: TextStyle(
+                   color: Colors.white
+                 ),
+               )
+             )
+           )
+         ]
       )
     );
   }

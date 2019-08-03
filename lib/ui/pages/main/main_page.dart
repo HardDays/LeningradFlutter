@@ -41,23 +41,35 @@ class MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin  
     'assets/images/icons/menu_icon4.png',
     'assets/images/icons/menu_icon5.png',
   ];
+  final titles = [
+    'Карта',
+    'ООПТ',
+    'Маршруты',
+    'Пожар',
+    'Слайды',
+    'Контакты'
+  ];
 
   final bloc = MainPageBloc();
   final pageController = PageController(initialPage: 0);
+  final mapPageController = MapPageController();
 
   List<Widget> pages;
     
   @override
   bool get wantKeepAlive => true;
 
+
+
   @override
   void initState() {
     super.initState();
 
-    pages = [MapPage(), ListPage(), MapPage(), FirePage(), SlidesPage(), ContactsPage()];
+    pages = [MapPage(controller: mapPageController), ListPage(), MapPage(), FirePage(), SlidesPage(), ContactsPage()];
 
   }
 
+  
   
   @override
   void reassemble() {
@@ -88,10 +100,33 @@ class MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin  
   PreferredSize buildAppBar() {
     return PreferredSize( 
       preferredSize: Size(0, 50),
-      child: AppBar(
-        backgroundColor: AppColors.blue,
-        centerTitle: true,
-        title: Text('Карта'),
+      child: StreamBuilder(
+        stream: bloc.page,
+        builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+          return AppBar(
+            backgroundColor: AppColors.blue,
+            centerTitle: true,
+            title: Text(titles[snapshot.data ?? 0]),
+            actions: snapshot.data == 0 ? <Widget>[
+              InkWell(
+                onTap: () {
+                  setState(() {});
+                  mapPageController.changeMap();
+                },
+                child: Container(
+                  color: Colors.transparent,
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.only(right: 10, top: 5, left: 5, bottom: 5),
+                  child: Text(mapPageController.satellite ? 'Схема' : 'Спутник',
+                    style: TextStyle(
+                      color: Colors.white
+                    ),
+                  )
+                )
+              )
+            ] : []
+          );
+        }
       )
     );
   }

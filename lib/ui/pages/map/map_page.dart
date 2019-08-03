@@ -13,8 +13,21 @@ import '../../resources/markers.dart';
 
 import '../../../models/oopt.dart';
 
+class MapPageController {
+
+  bool satellite = false;
+  Function onMapChange;
+
+  void changeMap() {
+    satellite = !satellite;
+    onMapChange();
+  }
+}
+
 class MapPage extends StatefulWidget {
-  const MapPage({Key key}) : super(key: key);
+  final MapPageController controller;
+  final Oopt oopt;
+  const MapPage({Key key, this.controller, this.oopt}) : super(key: key);
 
   @override
   MapPageState createState() => MapPageState();
@@ -41,6 +54,10 @@ class MapPageState extends State<MapPage>  with AutomaticKeepAliveClientMixin {
   void initState() {
     super.initState(); 
 
+    widget.controller.onMapChange = () {
+      bloc.changeMapType();
+    };
+
     bloc.load();
   }
 
@@ -55,6 +72,10 @@ class MapPageState extends State<MapPage>  with AutomaticKeepAliveClientMixin {
   void onMapComplete(GoogleMapController controller) {
     if (!mapController.isCompleted) {
       mapController.complete(controller);
+      if (widget.oopt != null) {
+        controller.moveCamera(CameraUpdate.newLatLng(LatLng(widget.oopt.lat, widget.oopt.lng)));
+        bloc.showInfoWindow(widget.oopt);
+      }
       bloc.load();
     }
   }
@@ -90,21 +111,26 @@ class MapPageState extends State<MapPage>  with AutomaticKeepAliveClientMixin {
   }
 
   Widget buildMap(List<Oopt> oopt) {
-    return GoogleMap(
-      mapType: MapType.normal,
-      initialCameraPosition: CameraPosition(
-        target: LatLng(59.90271, 30.24700),
-        zoom: 7,
-      ),
-      onTap: (p) {
-        bloc.hideInfoWindow();
-      },
-      onCameraMove: (p) {
-        bloc.hideInfoWindow();
-      },
-      onMapCreated: onMapComplete,
-      markers: oopt.map((p) => buildMarker(p)).toSet(),
-      polygons: oopt.where((p) => p.points.isNotEmpty).map((p) => buildPolygon(p)).toSet(),
+    return StreamBuilder(
+      stream: bloc.satelite,
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+        return GoogleMap(
+          mapType: snapshot.data == true ? MapType.satellite : MapType.normal,
+          initialCameraPosition: CameraPosition(
+            target: LatLng(59.90271, 30.24700),
+            zoom: 11,
+          ),
+          onTap: (p) {
+            bloc.hideInfoWindow();
+          },
+          onCameraMove: (p) {
+            bloc.hideInfoWindow();
+          },
+          onMapCreated: onMapComplete,
+          markers: oopt.map((p) => buildMarker(p)).toSet(),
+          polygons: oopt.where((p) => p.points.isNotEmpty).map((p) => buildPolygon(p)).toSet(),
+        );
+      }
     );
   }
 
