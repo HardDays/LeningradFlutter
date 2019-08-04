@@ -118,7 +118,7 @@ class MapPageState extends State<MapPage>  with AutomaticKeepAliveClientMixin {
           mapType: snapshot.data == true ? MapType.satellite : MapType.normal,
           initialCameraPosition: CameraPosition(
             target: LatLng(59.90271, 30.24700),
-            zoom: 11,
+            zoom: widget.oopt == null ? 7 : 11,
           ),
           onTap: (p) {
             bloc.hideInfoWindow();

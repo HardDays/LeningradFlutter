@@ -1,8 +1,11 @@
 import 'dart:typed_data';
 
 import '../models/oopt.dart';
+import '../models/route.dart';
+import '../models/place.dart';
 
 import '../providers/oopt_provider.dart';
+import '../providers/routes_provider.dart';
 
 class Repository {
 
@@ -17,6 +20,8 @@ class Repository {
   bool readFireMessage = false;
 
   List<Oopt> cachedOopt;
+  List<Route> cachedRoutes;
+  Map<int, List<Place>> cachedRoutePlaces = {};
 
   List<Uint8List> cachedCompressedImages;
 
@@ -34,4 +39,17 @@ class Repository {
     return cachedCompressedImages;
   }
 
+  Future<List<Route>> getRoutes() async {
+    if (cachedRoutes == null) {
+      cachedRoutes = await RoutesProvider.getRoutes();
+    }
+    return cachedRoutes;
+  }
+
+  Future<List<Place>> getRoutePlaces(int id) async {
+    if (!cachedRoutePlaces.containsKey(id)) {
+      cachedRoutePlaces[id] = await RoutesProvider.getRoutePlaces(id);
+    }
+    return cachedRoutePlaces[id];
+  }
 }

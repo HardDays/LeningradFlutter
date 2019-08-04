@@ -8,6 +8,7 @@ import '../list/list_page.dart';
 import '../contacts/contacts_page.dart';
 import '../fire/fire_page.dart';
 import '../slides/slides_page.dart';
+import '../route_list/route_list_page.dart';
 
 import '../../resources/app_colors.dart';
 
@@ -65,7 +66,7 @@ class MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin  
   void initState() {
     super.initState();
 
-    pages = [MapPage(controller: mapPageController), ListPage(), MapPage(), FirePage(), SlidesPage(), ContactsPage()];
+    pages = [MapPage(controller: mapPageController), ListPage(), RouteListPage(), FirePage(), SlidesPage(), ContactsPage()];
 
   }
 
