@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:google_maps_webservice/directions.dart' as dir;
+
 import '../models/oopt.dart';
 import '../models/route.dart';
 import '../models/place.dart';
@@ -17,11 +19,14 @@ class Repository {
     return _singleton;
   }
 
+  final googleRoutes = dir.GoogleMapsDirections(apiKey: 'AIzaSyCwkF3xcHqNUOCfZGlvIyzjouNmpdPXOiA');
+
   bool readFireMessage = false;
 
   List<Oopt> cachedOopt;
   List<Route> cachedRoutes;
   Map<int, List<Place>> cachedRoutePlaces = {};
+  Map<int, String> cachedPolylines = {};
 
   List<Uint8List> cachedCompressedImages;
 
@@ -49,7 +54,27 @@ class Repository {
   Future<List<Place>> getRoutePlaces(int id) async {
     if (!cachedRoutePlaces.containsKey(id)) {
       cachedRoutePlaces[id] = await RoutesProvider.getRoutePlaces(id);
+      //cachedRoutePlaces[id].add(Place(lat: cachedRoutePlaces[id].last.lat + 0.1, lng: cachedRoutePlaces[id].last.lng + 0.1));
+      //cachedRoutePlaces[id].add(Place(lat: cachedRoutePlaces[id].last.lat + 0.05, lng: cachedRoutePlaces[id].last.lng - 0.1));
+
     }
     return cachedRoutePlaces[id];
+  }
+
+  Future<String> getRoutePolyline(int id, List<Place> places) async {
+    if (!cachedPolylines.containsKey(id)) {
+      dir.DirectionsResponse res;
+      if (places.length > 2) {
+        res = await googleRoutes.directionsWithLocation(dir.Location(places.first.lat, places.first.lng), dir.Location(places.last.lat, places.last.lng), 
+          waypoints: places.sublist(1, places.length - 1).map((p) => dir.Waypoint.fromLocation(dir.Location(p.lat, p.lng))).toList()
+        );
+      } else {
+        res = await googleRoutes.directionsWithLocation(dir.Location(places.first.lat, places.first.lng), dir.Location(places.last.lat, places.last.lng));
+      }
+      if (res.status == 'OK') {
+        cachedPolylines[id] = res.routes.first.overviewPolyline.points;
+      }
+    }
+    return cachedPolylines[id];
   }
 }
