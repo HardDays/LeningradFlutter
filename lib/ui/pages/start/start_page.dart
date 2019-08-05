@@ -76,7 +76,7 @@ class StartPageState extends State<StartPage> with SingleTickerProviderStateMixi
   Widget buildSplash() {
     return Container(
       child: Center(
-        child: Icon(Icons.category),
+        //child: Icon(Icons.category),
       ),
     );
   }
