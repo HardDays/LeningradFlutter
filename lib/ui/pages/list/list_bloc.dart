@@ -26,8 +26,9 @@ class ListPageBloc {
 
   void load() async {
     final data = await repository.getOotpList();
-    loaded = data;
-    oopt.sink.add(data);
+    loaded = List.from(data);
+    loaded.sort((o1, o2) => o1.name.compareTo(o2.name));
+    oopt.sink.add(loaded);
 
     final images = await repository.getCompressedImages(loaded);
     compressedImages.sink.add(images);

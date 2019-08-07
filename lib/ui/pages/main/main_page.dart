@@ -134,15 +134,22 @@ class MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin  
 
   BottomNavigationBarItem buildIcon(String title, int index, int page) {
     return BottomNavigationBarItem(
+
       title: Text(title,
         style: TextStyle(
-          fontSize: 12,
+          fontSize: 11,
           color: page == index ? (index == 3 ? Colors.red : AppColors.blue) : Colors.grey.withOpacity(0.9),
         ),
       ),
+      activeIcon: Container(
+          child: Image(
+            image: AssetImage(onIcons[index]),
+            width: 30,
+          )
+      ),
       icon: Container(
         child: Image(
-          image: AssetImage(page == index ? onIcons[index] : offIcons[index]),
+          image: AssetImage(offIcons[index]),
           width: 30,
         )
       ),
@@ -177,7 +184,7 @@ class MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin  
               child: BottomNavigationBar(
                 type: BottomNavigationBarType.fixed,
                 fixedColor: AppColors.blue,
-                currentIndex:page,
+                currentIndex: page,
                 onTap: onBottomItemPressed,
                 items:  <BottomNavigationBarItem>[
                   buildIcon('Карта', 0, page),

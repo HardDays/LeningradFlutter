@@ -43,8 +43,9 @@ class RoutePageState extends State<RoutePage> {
     bloc.load(widget.route);
   }
 
-  void onMapComplete(GoogleMapController controller, List<Point> places) {
+  void onMapComplete(GoogleMapController controller, List<Point> places) async {
     mapController = controller;
+    await Future.delayed(Duration(seconds: 1));
     centerMap(places);
   }
 
@@ -149,7 +150,7 @@ class RoutePageState extends State<RoutePage> {
                               zoomGesturesEnabled: false,
                               rotateGesturesEnabled: false,
                               tiltGesturesEnabled: false,
-                              myLocationEnabled: true,
+                              //myLocationEnabled: true,
                               initialCameraPosition: CameraPosition(
                                 target: LatLng(59.90271, 30.24700),
                                 zoom: 10,
@@ -167,8 +168,9 @@ class RoutePageState extends State<RoutePage> {
                                 (index) { 
                                   return Marker(
                                     markerId: MarkerId(index.toString()),
-                                    icon: BitmapDescriptor.fromBytes(Markers().marker(OoptCategory.wildlifeSanctuary)),
+                                    icon: BitmapDescriptor.fromBytes(Markers().marker(snapshot.data[index].type)),
                                     position: LatLng(snapshot.data[index].lat, snapshot.data[index].lng),
+                                    consumeTapEvents: true,
                                     infoWindow: InfoWindow(
                                       title: snapshot.data[index].name ?? 'Место',
                                       snippet: snapshot.data[index].description ?? ''

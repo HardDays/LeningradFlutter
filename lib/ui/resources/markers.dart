@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import '../resources/app_colors.dart';
 
 import '../../models/oopt.dart';
+import '../../models/place.dart';
 
 class Markers {
 
@@ -29,7 +30,11 @@ class Markers {
     mapper[OoptCategory.naturalPark] = await createMarker('assets/images/icons/pin_1.png');
     mapper[OoptCategory.naturalMonument] = await createMarker('assets/images/icons/pin_2.png');
     mapper[OoptCategory.wildlifeSanctuary] = await createMarker('assets/images/icons/pin_3.png');
-    mapper['fire'] = await createMarker('assets/images/icons/pin_4.png', width: 200, height: 200);
+    mapper['fire_call'] = await createMarker('assets/images/icons/pin_4.png', width: 200, height: 200);
+
+    for (final cat in PlaceType.all) {
+      mapper[cat] = await createMarker('assets/images/icons/pin_$cat.png');
+    }
   }
 
   Future<ui.Image> load(String asset) async {
@@ -40,7 +45,11 @@ class Markers {
   }
 
   Uint8List marker(String name) {
-    return mapper[name];
+    if (mapper.containsKey(name)) {
+      return mapper[name];
+    } else {
+      return mapper['any'];
+    }
   }
 
   // Future createPlaceMarker() async {

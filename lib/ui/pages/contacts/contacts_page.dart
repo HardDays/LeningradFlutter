@@ -101,17 +101,19 @@ class ContactsPageState extends State<ContactsPage> with AutomaticKeepAliveClien
                     image: AssetImage('assets/data/contacts/images/logo_4.jpg'),
                   ),
                 ),
-                buildListElem('Адрес', 'г. Санкт-Петербург, ул. Торжковская, д. 4, офис 432, 197342',),
+                buildListElem('Фактический адрес', 'г. Санкт-Петербург, ул. Блохина, д. 8 офис 3-11, 197198',),
+                buildListElem('Почтовый адрес', 'Ленинградская область, Выборгский район, МО «Красносельское поселение», п. Грибное, д. б/н, 188800',),
                 buildListElem('Телефон', '+7(812)492-96-10', onTap: () {
                   launch('tel:+7(812)492-96-10');
                 }),
-                buildListElem('Email', 'oopt.lo@yandex.ru', onTap: () {
+                buildListElem('Email №1', 'oopt.lo@yandex.ru', onTap: () {
                   launch('mailto:oopt.lo@yandex.ru');
                 }),
-                buildListElem('Сайт', 'www.ooptlo.ru', onTap: () {
-                  launch('http://ooptlo.ru');
+                buildListElem('Email №2', 'hello@ooptlo.ru', onTap: () {
+                  launch('mailto:hello@ooptlo.ru');
                 }),
                 buildListElem('Директор филиала', 'Кухарский Павел Игоревич',),
+                buildListElem('И.о. директора филиала', 'Силуянов Александр Николаевич',),
                 Padding(padding: EdgeInsets.only(bottom: 20))
               ]
             ),
@@ -132,9 +134,10 @@ class ContactsPageState extends State<ContactsPage> with AutomaticKeepAliveClien
                     image: AssetImage('assets/data/contacts/images/logku_logo.jpg'),
                   ),
                 ),
-                buildListElem('Адрес', 'г. Санкт-Петербург, ул. Белоостровская, д. 22, 197342',),
-                buildListElem('Телефон/Факс', '+7(812)643-44-14', onTap: () {
-                  launch('tel:+7(812)643-44-14');
+                buildListElem('Юридический адрес', 'Ленинградская область, Всеволожский район, г. Всеволожск, Колтушское шоссе, д. 138, 188643',),
+                buildListElem('Фактический адрес', ' г. Санкт-Петербург, ул. Блохина, д. 8, 197198',),
+                buildListElem('Телефон/Факс', '+7(812)616-21-94', onTap: () {
+                  launch('tel:+7(812)616-21-94');
                 }),
                 buildListElem('Email', 'logbules@gmail.com', onTap: () {
                   launch('mailto:logbules@gmail.com');
@@ -175,14 +178,14 @@ class ContactsPageState extends State<ContactsPage> with AutomaticKeepAliveClien
                     image: AssetImage('assets/data/contacts/images/logo_5.png'),
                   ),
                 ),
-                buildListElem('Адрес', 'г. Санкт-Петербург, улица Торжковская, дом 4, 197342',),
-                buildListElem('Телефон/Факс', '+7(812)496-56-36', onTap: () {
-                  launch('tel:+7(812)492-56-36');
+                buildListElem('Адрес', 'г. Санкт-Петербург, пл. Растрелли, д. 2А (вход со Ставропольского переулка)',),
+                buildListElem('Телефон/Факс', '+7(812)611-41-01', onTap: () {
+                  launch('tel:+7(812)611-41-01');
                 }),
                 buildListElem('Email', 'lpc@lenreg.ru', onTap: () {
                   launch('mailto:lpc@lenreg.ru');
                 }),
-                buildListElem('Председатель комитета', 'Андреев Евгений Львович',),
+                buildListElem('Председатель комитета', 'Немчинов Павел Артурович',),
                 Container(
                   padding: EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 5),
                   child: Text('Отдел особо охраняемых природных территорий',
@@ -192,8 +195,8 @@ class ContactsPageState extends State<ContactsPage> with AutomaticKeepAliveClien
                     ),
                   ),
                 ),
-                buildListElem('Телефон', '+7(812)492-62-16', onTap: () {
-                  launch('tel:+7(812)492-62-16');
+                buildListElem('Телефон', '+7(812)611-40-75', onTap: () {
+                  launch('tel:+7(812)611-40-75');
                 }),
                 buildListElem('Начальник отдела', 'Стулов Федор Николаевич',),
                 Padding(padding: EdgeInsets.only(bottom: 20))
@@ -209,11 +212,11 @@ class ContactsPageState extends State<ContactsPage> with AutomaticKeepAliveClien
             ),
             InkWell(
               onTap: () {
-                launch('tel:+7(812)492-99-30');
+                launch('tel:+7(921)908-50-86');
               },
               child: Container(
                 padding: EdgeInsets.only(left: 15, right: 15),
-                child: Text('+7(812)492-99-30',
+                child: Text('+7(921)908-50-86',
                   style: TextStyle(
                     color: Colors.black.withOpacity(0.75),
                     decoration: TextDecoration.underline

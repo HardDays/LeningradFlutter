@@ -32,6 +32,7 @@ class Oopt {
   final List<String> ruleImages;
   final List<String> objectives;
   final List<String> norm;
+  final List<String> normLinks;
 
   Oopt(
     {
@@ -52,7 +53,8 @@ class Oopt {
       this.rules = const [],
       this.ruleImages = const [],
       this.objectives = const [],
-      this.norm = const []
+      this.norm = const [],
+      this.normLinks = const []
     }
   );
 
@@ -73,6 +75,7 @@ class Oopt {
       ruleImages: List<String>.from(json['rule_images']),
       rules: List<String>.from(json['rules']),
       norm: List<String>.from(json['norm']),
+      normLinks: List<String>.from(json['norm_links']),
       html: html,
       points: points,
       images: images

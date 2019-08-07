@@ -82,6 +82,19 @@ flutter:
     - assets/images/icons/pin_2.png
     - assets/images/icons/pin_3.png
     - assets/images/icons/pin_4.png
+    - assets/images/icons/pin_any.png
+    - assets/images/icons/pin_bin.png
+    - assets/images/icons/pin_birds.png
+    - assets/images/icons/pin_bridge.png
+    - assets/images/icons/pin_camping.png
+    - assets/images/icons/pin_eco.png
+    - assets/images/icons/pin_fire.png
+    - assets/images/icons/pin_sight.png
+    - assets/images/icons/pin_talking.png
+    - assets/images/icons/pin_view.png
+    - assets/images/icons/pin_view_place.png
+    - assets/images/icons/pin_water.png
+    - assets/images/icons/pin_way.png
 
     - assets/data/oopt.json
     - assets/data/oopt_images.json

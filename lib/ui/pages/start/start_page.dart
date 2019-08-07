@@ -83,6 +83,7 @@ class StartPageState extends State<StartPage> with SingleTickerProviderStateMixi
 
   Widget buildBackground() {
     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     // return PageView(
     //   controller: controller,
     //   children: List.generate(images.length,
@@ -118,10 +119,12 @@ class StartPageState extends State<StartPage> with SingleTickerProviderStateMixi
           firstChild: Image(
             fit: BoxFit.cover,
             height: height,
+            width: width,
             image: AssetImage(first)
           ),
           secondChild: Image(
             fit: BoxFit.cover,
+            width: width,
             height: height,
             image: AssetImage(second)
           )

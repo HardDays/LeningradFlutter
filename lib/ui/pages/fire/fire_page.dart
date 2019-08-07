@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:permission/permission.dart';
 
 import 'fire_bloc.dart';
 
@@ -42,6 +43,7 @@ class FirePageState extends State<FirePage>  with AutomaticKeepAliveClientMixin 
         );
       }
     );
+    Permission.requestPermissions([PermissionName.Location]);
     //bloc.load();
   }
 
@@ -82,7 +84,7 @@ class FirePageState extends State<FirePage>  with AutomaticKeepAliveClientMixin 
   }
 
   Marker buildMarker(Position pos) {
-    final fire = 'fire';
+    final fire = 'fire_call';
     return Marker(
       markerId: MarkerId(fire),
       icon: BitmapDescriptor.fromBytes(markers.marker(fire)),

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 // import 'package:webview_flutter/webview_flutter.dart';
-import 'package:flutter_inappbrowser/flutter_inappbrowser.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'oopt_bloc.dart';
 
@@ -66,6 +66,37 @@ class OoptPageState extends State<OoptPage> {
             oopt: widget.oopt,
             controller: MapPageController(),
           ),
+        )
+      )
+    );
+  }
+
+  void onRules() {
+    Dialogs.showThemed(context,
+      Container(
+        width: MediaQuery.of(context).size.width * 0.8,
+        height: MediaQuery.of(context).size.height * 0.8,
+        margin: EdgeInsets.all(10),
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Container(
+              padding: EdgeInsets.only(bottom: 50),
+              child: SingleChildScrollView(
+                child: buildRules(),
+              ),
+            ),
+            FlatButton(
+              child: Text('Закрыть',
+                style: TextStyle(
+                  color: AppColors.blue
+                )
+              ),
+              onPressed: () {
+                Dialogs.hide(context);
+              },
+            )
+          ]
         )
       )
     );
@@ -219,6 +250,89 @@ class OoptPageState extends State<OoptPage> {
   //   );
   // }
 
+  Widget buildRules() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          color: Colors.grey.withOpacity(0.3),
+          margin: EdgeInsets.only(top: 10),
+          padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
+          width: MediaQuery.of(context).size.width,
+          child: Text('Правила для посетителей',
+            style: TextStyle(
+                fontSize: 16,
+                color: Colors.black.withOpacity(1),
+                fontWeight: FontWeight.w500
+            ),
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.only(top: 10, left: 12, right: 12),
+          child: Wrap(
+              children: List.generate(widget.oopt.ruleImages.length,
+                      (index) {
+                    return Container(
+                        padding: EdgeInsets.only(left: 3, right: 3, top: 3, bottom: 3),
+                        child: Image(
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          height: MediaQuery.of(context).size.width * 0.2,
+                          image: AssetImage('assets/data/src/' + widget.oopt.ruleImages[index]),
+                        )
+                    );
+                  }
+              )
+          )
+        ),
+        Container(
+          padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('На территории запрещается: ',
+                  style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.black.withOpacity(1),
+                      fontWeight: FontWeight.w500
+                  )
+              ),
+              Padding(padding: EdgeInsets.only(top: 3)),
+              Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: List.generate(widget.oopt.rules.length,
+                          (index) {
+                        return Container(
+                            padding: EdgeInsets.only(top: 3),
+                            child: Text('- ' + widget.oopt.rules[index],
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black.withOpacity(1),
+                                  fontWeight: FontWeight.w300
+                              ),
+                            )
+                        );
+                      }
+                  )
+              )
+            ]
+          )
+        ),
+        Container(
+          //color: Colors.grey.withOpacity(0.3),
+          padding: EdgeInsets.only(top: 5, left: 15, right: 15),
+          width: MediaQuery.of(context).size.width,
+          child: Text(widget.oopt.law,
+            style: TextStyle(
+                fontSize: 12,
+                color: Colors.black.withOpacity(1),
+                fontWeight: FontWeight.w300
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget buildBody() {
     return Container(
       child: Column(
@@ -226,11 +340,34 @@ class OoptPageState extends State<OoptPage> {
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(top: 10, left: 15, right: 15),
-            child: Text(widget.oopt.name,
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w600
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  child: Text(widget.oopt.name,
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: onRules,
+                  child: Container(
+                    padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                    decoration: BoxDecoration(
+                      color: AppColors.blue,
+                      borderRadius: BorderRadius.all(Radius.circular(10))
+                    ),
+                    child:  Text('Правила',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14
+                      ),
+                    ),
+                  ),
+                )
+              ]
             ),
           ),
           Container(
@@ -313,81 +450,7 @@ class OoptPageState extends State<OoptPage> {
               ),
             ),
           ),
-          Container(
-            color: Colors.grey.withOpacity(0.3),
-            margin: EdgeInsets.only(top: 10),
-            padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),  
-            width: MediaQuery.of(context).size.width,          
-            child: Text('Правила для посетителей',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.black.withOpacity(1),
-                fontWeight: FontWeight.w500
-              ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 10, left: 12, right: 12),
-            child: Wrap(
-              children: List.generate(widget.oopt.ruleImages.length, 
-                (index) {
-                  return Container(
-                    padding: EdgeInsets.only(left: 3, right: 3, top: 3, bottom: 3),
-                    child: Image(
-                      width: MediaQuery.of(context).size.width * 0.2,
-                      height: MediaQuery.of(context).size.width * 0.2,
-                      image: AssetImage('assets/data/src/' + widget.oopt.ruleImages[index]),
-                    )
-                  );
-                }
-              )
-            )
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('На территории запрещается: ',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black.withOpacity(1),
-                    fontWeight: FontWeight.w500
-                  )
-                ),
-                Padding(padding: EdgeInsets.only(top: 3)),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: List.generate(widget.oopt.rules.length, 
-                    (index) {
-                      return Container(
-                        padding: EdgeInsets.only(top: 3),
-                        child: Text('- ' + widget.oopt.rules[index],
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.black.withOpacity(1),
-                            fontWeight: FontWeight.w300
-                          ),
-                        )
-                      );
-                    }
-                  )
-                )
-              ]
-            )
-          ),
-          Container(
-            //color: Colors.grey.withOpacity(0.3),
-            padding: EdgeInsets.only(top: 5, left: 15, right: 15),  
-            width: MediaQuery.of(context).size.width,          
-            child: Text(widget.oopt.law,
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.black.withOpacity(1),
-                fontWeight: FontWeight.w300
-              ),
-            ),
-          ),
+          buildRules(),
           Container(
             color: Colors.grey.withOpacity(0.3),
             margin: EdgeInsets.only(top: 10),
@@ -407,14 +470,23 @@ class OoptPageState extends State<OoptPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: List.generate(widget.oopt.norm.length, 
                 (index) {
-                  return Container(
-                    padding: EdgeInsets.only(top: 7),
-                    child: Text(widget.oopt.norm[index],
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.black.withOpacity(1),
-                        fontWeight: FontWeight.w300
-                      ),
+                  return InkWell(
+                    onTap: () {
+                      if (widget.oopt.normLinks.length >= widget.oopt.norm.length) {
+                        launch(widget.oopt.normLinks[index]);
+                      }
+                    },
+                    child: Container(
+                      color: Colors.transparent,
+                      padding: EdgeInsets.only(top: 7),
+                      child: Text(widget.oopt.norm[index],
+                        style: TextStyle(
+                          fontSize: 12,
+                          decoration: TextDecoration.underline,
+                          color: Colors.black.withOpacity(1),
+                          fontWeight: FontWeight.w300
+                        ),
+                      )
                     )
                   );
                 }

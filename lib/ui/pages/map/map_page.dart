@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:permission/permission.dart';
 
 import 'map_bloc.dart';
 
@@ -60,6 +60,8 @@ class MapPageState extends State<MapPage>  with AutomaticKeepAliveClientMixin {
     };
 
     bloc.load();
+
+    Permission.requestPermissions([PermissionName.Location]);
   }
 
   @override
