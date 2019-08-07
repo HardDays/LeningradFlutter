@@ -8,7 +8,7 @@ import 'package:leningrad_green/models/oopt.dart';
 
 import 'route_bloc.dart';
 
-import '../map/map_page.dart';
+import '../route_map/route_map_page.dart';
 import '../fullscreen_images/fullscreen_images_page.dart';
 
 import '../../dialogs/dialogs.dart';
@@ -32,7 +32,7 @@ class RoutePage extends StatefulWidget {
 
 class RoutePageState extends State<RoutePage> {
 
-  final bloc = RouteListPageBloc();
+  final bloc = RoutePageBloc();
 
   GoogleMapController mapController;
   
@@ -149,6 +149,7 @@ class RoutePageState extends State<RoutePage> {
                               zoomGesturesEnabled: false,
                               rotateGesturesEnabled: false,
                               tiltGesturesEnabled: false,
+                              myLocationEnabled: true,
                               initialCameraPosition: CameraPosition(
                                 target: LatLng(59.90271, 30.24700),
                                 zoom: 10,
@@ -197,7 +198,7 @@ class RoutePageState extends State<RoutePage> {
                               alignment: Alignment.bottomCenter,
                               child: InkWell(
                                 onTap: () {
-                                  centerMap(polySnapshot.data);
+                                  Navigator.push(context, MaterialPageRoute<Null>(builder: (t) => RouteMapPage(widget.route)));
                                 },
                                 child: Container(
                                   padding: EdgeInsets.all(10),
@@ -206,7 +207,7 @@ class RoutePageState extends State<RoutePage> {
                                     color: AppColors.blue,
                                     borderRadius: BorderRadius.all(Radius.circular(10))
                                   ),
-                                  child: Text('Центрировать',
+                                  child: Text('Открыть карту',
                                     style: TextStyle(
                                       fontSize: 14,
                                       color: Colors.white

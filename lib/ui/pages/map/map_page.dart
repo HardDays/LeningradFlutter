@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 
 import 'map_bloc.dart';
 
@@ -115,6 +116,7 @@ class MapPageState extends State<MapPage>  with AutomaticKeepAliveClientMixin {
       stream: bloc.satelite,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         return GoogleMap(
+          myLocationEnabled: true,
           mapType: snapshot.data == true ? MapType.satellite : MapType.normal,
           initialCameraPosition: CameraPosition(
             target: LatLng(59.90271, 30.24700),

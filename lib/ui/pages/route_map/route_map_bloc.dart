@@ -12,14 +12,14 @@ import '../../../models/route.dart';
 
 import '../../../storage/repository.dart';
 
-class RoutePageBloc {
+class RouteMapPageBloc {
 
   final repository = Repository();
 
   BehaviorSubject<List<Place>> places;
   BehaviorSubject<List<Point>> polyline;
 
-  RoutePageBloc() {
+  RouteMapPageBloc() {
     places = BehaviorSubject<List<Place>>();
     polyline = BehaviorSubject<List<Point>>();
   }
