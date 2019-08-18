@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Коккоревский.kml</name>
+		<typeZone>2</typeZone>
+    <centerZone>31.08738, 60.03460</centerZone>
+	<Style id="s_ylw-pushpin">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+   <color>FF0022FF</color>
+   <width>2</width>
+  </LineStyle>
+  <PolyStyle>
+   <color>44FF2200</color>
+  </PolyStyle>
+	</Style>
+	<StyleMap id="m_ylw-pushpin">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#s_ylw-pushpin</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#s_ylw-pushpin_hl</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="s_ylw-pushpin_hl">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+   <color>FF0022FF</color>
+   <width>2</width>
+  </LineStyle>
+  <PolyStyle>
+   <color>44FF2200</color>
+  </PolyStyle>
+	</Style>
+	  <Placemark>
+        <name>Ямницкая</name>
+        <description><![CDATA[описание: <br>��������: ]]></description>
+        <styleUrl>#poly-DB4436-2601-0</styleUrl>
+        <ExtendedData>
+          <Data name="описание">
+            <value/>
+          </Data>
+          <Data name="��������">
+            <value/>
+          </Data>
+        </ExtendedData>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                35.1016566,59.6389391,0
+                35.1025009,59.631054,0
+                35.1086808,59.6241103,0
+                35.1182939,59.6216797,0
+                35.1258471,59.6185543,0
+                35.1388935,59.6154287,0
+                35.1382069,59.6088291,0
+                35.1491933,59.6119554,0
+                35.2432647,59.6088291,0
+                35.2418914,59.6015334,0
+                35.3229164,59.6015334,0
+                35.3222298,59.6185543,0
+                35.3558757,59.6178598,0
+                35.3641156,59.6168179,0
+                35.3799086,59.6286239,0
+                35.3840285,59.6338311,0
+                35.3854018,59.6397316,0
+                35.392955,59.643202,0
+                35.3963882,59.645978,0
+                35.4011948,59.6501417,0
+                35.4094346,59.6532641,0
+                35.4128679,59.6560394,0
+                35.4073747,59.6605486,0
+                35.4046281,59.6647105,0
+                35.3957016,59.6685251,0
+                35.3867751,59.6719925,0
+                35.3881484,59.6955615,0
+                35.3696088,59.695215,0
+                35.3702954,59.7222299,0
+                35.2830906,59.7232685,0
+                35.2837772,59.749569,0
+                35.1313403,59.7502608,0
+                35.1334003,59.7357292,0
+                35.1134874,59.7364213,0
+                35.1134874,59.73123,0
+                35.1045609,59.7322684,0
+                35.0942611,59.7350371,0
+                35.0942611,59.7246533,0
+                35.1031876,59.7229223,0
+                35.1031876,59.7170364,0
+                35.1011276,59.7114958,0
+                35.0956344,59.699719,0
+                35.1018143,59.6896708,0
+                35.0942611,59.6865518,0
+                35.0942611,59.6785796,0
+                35.098381,59.6740728,0
+                35.0961634,59.6564614,0
+                35.0935884,59.6516046,0
+                35.0939317,59.6467472,0
+                35.1007983,59.6437109,0
+                35.1035449,59.6425831,0
+                35.1045748,59.6414552,0
+                35.1016566,59.6389391,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+    
+</Document>
+</kml>
