@@ -61,7 +61,11 @@ class MapPageState extends State<MapPage>  with AutomaticKeepAliveClientMixin {
 
     bloc.load();
 
-    Permission.requestPermissions([PermissionName.Location]);
+    try {
+      Permission.requestPermissions([PermissionName.Location]);
+    } catch (ex) {
+
+    }
   }
 
   @override
@@ -102,15 +106,25 @@ class MapPageState extends State<MapPage>  with AutomaticKeepAliveClientMixin {
     );
   }
 
-  Polygon buildPolygon(Oopt oopt) {
-    final color = polyColors[oopt.category];
-    return Polygon(
-      polygonId: PolygonId(oopt.id.toString()),
-      strokeColor: color,
-      strokeWidth: 3,
-      fillColor: color.withOpacity(0.25),
-      points: oopt.points.map((p) => LatLng(p.x, p.y)).toList()
-    );
+  List<Polygon> buildPolygon(List<Oopt> oopts) {
+    List<Polygon> polys = [];
+    for (final oopt in oopts) {
+      int i = 0;
+      for (final points in oopt.points) {
+        final color = polyColors[oopt.category];
+        polys.add(
+          Polygon(
+            polygonId: PolygonId(oopt.id.toString() + i.toString()),
+            strokeColor: color,
+            strokeWidth: 3,
+            fillColor: color.withOpacity(0.25),
+            points: points.map((p) => LatLng(p.x, p.y)).toList()
+          )
+        );
+        i++;
+      }
+    }
+    return polys;
   }
 
   Widget buildMap(List<Oopt> oopt) {
@@ -132,7 +146,7 @@ class MapPageState extends State<MapPage>  with AutomaticKeepAliveClientMixin {
           },
           onMapCreated: onMapComplete,
           markers: oopt.map((p) => buildMarker(p)).toSet(),
-          polygons: oopt.where((p) => p.points.isNotEmpty).map((p) => buildPolygon(p)).toSet(),
+          polygons: buildPolygon(oopt.where((p) => p.points.isNotEmpty).toList()).toSet(),
         );
       }
     );

@@ -31,17 +31,31 @@ class OoptProvider {
     return result;
   }
 
-  static Future<List<Point>> loadArea(int id) async {
+  static Future<List<List<Point>>> loadArea(int id) async {
     final data = await rootBundle.loadString(ooptPath + id.toString() + areaPath);
     try {
       final document = xml.parse(data);
-      final coordinates = document.findAllElements('coordinates').single.text.trim().split(' ');
-      List<Point> result = [];
-      for (final coord in coordinates) {
+      //final coordinates = document.findAllElements('coordinates').single.text.trim().split(' ');
+      final coordinates = document.findAllElements('coordinates');
+      List<List<Point>> result = [];
+      for (final cur in coordinates) {
         try {
-          final point = coord.split(',');
-          result.add(Point(double.parse(point[0]), double.parse(point[1])));
-        } catch(ex){
+          if (id > 42) {
+            var t = 0;
+          }
+          final coords = id > 42 ? cur.text.trim().split('\n') : cur.text.trim().split(' ');
+          List<Point> tmp = [];
+          for (final coord in coords) {
+            try {
+              final point = coord.split(',');
+              tmp.add(Point(double.parse(point[0]), double.parse(point[1])));
+            } catch (ex) {
+              var s = 0;
+            }
+          }
+          result.add(tmp);
+        } catch (ex) {
+          var x = 0;
         }
       }
       return result;

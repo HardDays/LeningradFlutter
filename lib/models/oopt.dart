@@ -26,7 +26,7 @@ class Oopt {
   final double lng;
   final double square;
 
-  final List<Point> points;
+  final List<List<Point>> points;
   final List<OoptImage> images;
   final List<String> rules;
   final List<String> ruleImages;
@@ -58,7 +58,7 @@ class Oopt {
     }
   );
 
-  factory Oopt.fromJson(Map<String, dynamic> json, String html, List<OoptImage> images, List<Point> points) {
+  factory Oopt.fromJson(Map<String, dynamic> json, String html, List<OoptImage> images, List<List<Point>> points) {
     return Oopt(
       id: json['id'],
       name: json['name'],
@@ -66,7 +66,7 @@ class Oopt {
       date: DateTime.parse(json['date']),
       lat: json['lat'],
       lng: json['lng'],
-      square: json['square'],
+      square: json['square']?.toDouble() ?? 0.0,
       description: json['description'],
       law: json['law'],
       annotation: json['annotation'],

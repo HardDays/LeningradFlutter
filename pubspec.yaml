@@ -516,6 +516,39 @@ flutter:
     - assets/data/src/logo_002.png
     - assets/data/src/logo_003.png
     - assets/data/src/style.css
+    - assets/data/oopt_43/area_1.kml
+    - assets/data/oopt_44/area_1.kml
+    - assets/data/oopt_45/area_1.kml
+    - assets/data/oopt_46/area_1.kml
+    - assets/data/oopt_47/area_1.kml
+    - assets/data/oopt_48/area_1.kml
+    - assets/data/oopt_49/area_1.kml
+    - assets/data/oopt_50/area_1.kml
+    - assets/data/oopt_43/pic_1.jpg
+    - assets/data/oopt_44/pic_1.jpg
+    - assets/data/oopt_45/pic_1.jpg
+    - assets/data/oopt_46/pic_1.jpg
+    - assets/data/oopt_47/pic_1.jpg
+    - assets/data/oopt_47/pic_2.jpg
+    - assets/data/oopt_47/pic_3.jpg
+    - assets/data/oopt_47/pic_4.jpg
+    - assets/data/oopt_47/pic_5.jpg
+    - assets/data/oopt_47/pic_6.jpg
+    - assets/data/oopt_47/pic_7.jpg
+    - assets/data/oopt_47/pic_8.jpg
+    - assets/data/oopt_48/pic_1.jpg
+    - assets/data/oopt_48/pic_2.jpg
+    - assets/data/oopt_48/pic_3.jpg
+    - assets/data/oopt_48/pic_4.jpg
+    - assets/data/oopt_48/pic_5.jpg
+    - assets/data/oopt_48/pic_6.jpg
+    - assets/data/oopt_49/pic_1.jpg
+    - assets/data/oopt_49/pic_2.jpg
+    - assets/data/oopt_49/pic_3.jpg
+    - assets/data/oopt_49/pic_4.jpg
+    - assets/data/oopt_49/pic_5.jpg
+    - assets/data/oopt_49/pic_6.jpg
+    - assets/data/oopt_50/pic_1.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
