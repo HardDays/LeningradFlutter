@@ -8,6 +8,7 @@ import '../models/place.dart';
 
 import '../providers/oopt_provider.dart';
 import '../providers/routes_provider.dart';
+import '../providers/graphopper_provider.dart';
 
 class Repository {
 
@@ -51,6 +52,16 @@ class Repository {
     return cachedRoutes;
   }
 
+  Future getArea(int id) async {
+    for (final oopt in cachedOopt) {
+      if (oopt.id == id) {
+        final area = await OoptProvider.loadArea(oopt.id);
+        oopt.points = area;
+      }
+    }
+  }
+
+
   Future<List<Place>> getRoutePlaces(int id) async {
     if (!cachedRoutePlaces.containsKey(id)) {
       cachedRoutePlaces[id] = await RoutesProvider.getRoutePlaces(id);
@@ -64,15 +75,16 @@ class Repository {
   Future<String> getRoutePolyline(int id, List<Place> places) async {
     if (!cachedPolylines.containsKey(id)) {
       dir.DirectionsResponse res;
-      if (places.length > 2) {
-        res = await googleRoutes.directionsWithLocation(dir.Location(places.first.lat, places.first.lng), dir.Location(places.last.lat, places.last.lng), 
-          waypoints: places.sublist(1, places.length - 1).map((p) => dir.Waypoint.fromLocation(dir.Location(p.lat, p.lng))).toList()
-        );
-      } else {
-        res = await googleRoutes.directionsWithLocation(dir.Location(places.first.lat, places.first.lng), dir.Location(places.last.lat, places.last.lng));
-      }
+//      if (places.length > 2) {
+//        res = await googleRoutes.directionsWithLocation(dir.Location(places.first.lat, places.first.lng), dir.Location(places.last.lat, places.last.lng),
+//          waypoints: places.sublist(1, places.length - 1).map((p) => dir.Waypoint.fromLocation(dir.Location(p.lat, p.lng))).toList(),
+//          travelMode: dir.TravelMode.walking
+//        );
+//      } else {
+//        res = await googleRoutes.directionsWithLocation(dir.Location(places.first.lat, places.first.lng), dir.Location(places.last.lat, places.last.lng), travelMode: dir.TravelMode.walking);
+//      }
       if (res.status == 'OK') {
-        cachedPolylines[id] = res.routes.first.overviewPolyline.points;
+        cachedPolylines[id] =  await GraphhopperProvider.getRoute(places); //res.routes.first.overviewPolyline.points;
       }
     }
     return cachedPolylines[id];

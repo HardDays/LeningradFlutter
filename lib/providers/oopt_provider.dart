@@ -25,8 +25,8 @@ class OoptProvider {
 
     List<Oopt> result = [];
     for (final oopt in body) {
-      final points = await loadArea(oopt['id']);
-      result.add(Oopt.fromJson(oopt, ooptPath + oopt['id'].toString() + htmlPath, images[oopt['id'] - 1], points));
+      //final points = await loadArea(oopt['id']);
+      result.add(Oopt.fromJson(oopt, ooptPath + oopt['id'].toString() + htmlPath, images[oopt['id'] - 1]));
     }
     return result;
   }
@@ -43,12 +43,12 @@ class OoptProvider {
           if (id > 42) {
             var t = 0;
           }
-          final coords = id > 42 ? cur.text.trim().split('\n') : cur.text.trim().split(' ');
+          final coords = cur.text.trim().split('\n');
           List<Point> tmp = [];
           for (final coord in coords) {
             try {
               final point = coord.split(',');
-              tmp.add(Point(double.parse(point[0]), double.parse(point[1])));
+              tmp.add(Point(double.parse(point[1]), double.parse(point[0])));
             } catch (ex) {
               var s = 0;
             }

@@ -366,7 +366,7 @@ class OoptPageState extends State<OoptPage> {
                       ),
                     ),
                   ),
-                )
+                ),
               ]
             ),
           ),
@@ -377,6 +377,26 @@ class OoptPageState extends State<OoptPage> {
                 fontSize: 16,
                 fontWeight: FontWeight.w400
               ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 10, left: 15, right: 15),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: List.generate(widget.oopt.logo.length,
+                  (index) {
+                    return Container(
+                      child: Image(
+                        width: MediaQuery.of(context).size.height * 0.1,
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        fit: BoxFit.fitHeight,
+                        image: AssetImage('assets/data/oopt_${widget.oopt.id}/${widget.oopt.logo[index]}'),
+                      ),
+                    );
+                  }
+                )
+              )
             ),
           ),
           Container(

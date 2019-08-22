@@ -26,13 +26,14 @@ class Oopt {
   final double lng;
   final double square;
 
-  final List<List<Point>> points;
+  List<List<Point>> points;
   final List<OoptImage> images;
   final List<String> rules;
   final List<String> ruleImages;
   final List<String> objectives;
   final List<String> norm;
   final List<String> normLinks;
+  final List<String> logo;
 
   Oopt(
     {
@@ -48,17 +49,18 @@ class Oopt {
       this.law,
       this.annotation,
       this.features,
-      this.images = const [], 
+      this.images = const [],
+      this.logo = const [],
       this.points = const [],
       this.rules = const [],
       this.ruleImages = const [],
       this.objectives = const [],
       this.norm = const [],
-      this.normLinks = const []
+      this.normLinks = const [],
     }
   );
 
-  factory Oopt.fromJson(Map<String, dynamic> json, String html, List<OoptImage> images, List<List<Point>> points) {
+  factory Oopt.fromJson(Map<String, dynamic> json, String html, List<OoptImage> images) {
     return Oopt(
       id: json['id'],
       name: json['name'],
@@ -72,12 +74,12 @@ class Oopt {
       annotation: json['annotation'],
       features: json['features'],
       objectives: List<String>.from(json['objectives']),
+      logo: json['logo'] != null ? List<String>.from(json['logo']) : [],
       ruleImages: List<String>.from(json['rule_images']),
       rules: List<String>.from(json['rules']),
       norm: List<String>.from(json['norm']),
       normLinks: List<String>.from(json['norm_links']),
       html: html,
-      points: points,
       images: images
     );
   }

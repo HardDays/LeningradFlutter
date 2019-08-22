@@ -16,10 +16,12 @@ class RoutePageBloc {
 
   final repository = Repository();
 
+  BehaviorSubject<bool> satelite;
   BehaviorSubject<List<Place>> places;
   BehaviorSubject<List<Point>> polyline;
 
   RoutePageBloc() {
+    satelite = BehaviorSubject<bool>.seeded(false);
     places = BehaviorSubject<List<Place>>();
     polyline = BehaviorSubject<List<Point>>();
   }
@@ -39,4 +41,9 @@ class RoutePageBloc {
     }
     places.sink.add(placeRes);
   } 
+
+  
+  void changeMapType() {
+    satelite.sink.add(!satelite.value);
+  }
 }

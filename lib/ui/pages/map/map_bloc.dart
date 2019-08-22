@@ -28,6 +28,15 @@ class MapPageBloc {
 
     final data = await repository.getOotpList();
     ootp.sink.add(data);
+    int i = 0;
+    for (final point in data) {
+      await repository.getArea(point.id);
+      if (i % 5 == 0) {
+        final updated = await repository.getOotpList();
+        ootp.sink.add(updated);
+      }
+      i += 1;
+    }
   }
 
   void changeMapType() {
