@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:math';
 import 'dart:typed_data';
 
+import 'package:xml/xml.dart' as xml;
 import 'package:http/http.dart' as http;
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 import '../models/route.dart';
 import '../models/place.dart';
@@ -87,6 +90,25 @@ class RoutesProvider {
     } catch (ex) {
       print(ex);
       return [];
+    }
+  }
+
+  static Future<List<List<Point>>> getRoutePoints(int id) async {
+    try {
+      final data = await rootBundle.loadString('assets/data/routes/$id.gpx');
+      final document = xml.parse(data);
+      List<List<Point>> result = [];
+      for (final track in document.findAllElements('trk')) {
+        List<Point> current = [];
+        for (final point in track.findAllElements('trkpt')) {
+          final lat = double.parse(point.getAttribute('lat'));
+          final lon = double.parse(point.getAttribute('lon'));
+          current.add(Point(lat, lon));
+        }
+        result.add(current);
+      }
+      return result;
+    } catch (ex) {
     }
   }
 

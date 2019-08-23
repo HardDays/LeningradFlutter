@@ -17,25 +17,30 @@ class RouteMapPageBloc {
   final repository = Repository();
 
   BehaviorSubject<List<Place>> places;
-  BehaviorSubject<List<Point>> polyline;
+  BehaviorSubject<List<List<Point>>> polyline;
 
   RouteMapPageBloc() {
     places = BehaviorSubject<List<Place>>();
-    polyline = BehaviorSubject<List<Point>>();
+    polyline = BehaviorSubject<List<List<Point>>>();
   }
 
   void load(Route route) async {
     final placeRes = await repository.getRoutePlaces(route.id);
     try {
       if (placeRes.length > 1) {
-        final polyRes = await repository.getRoutePolyline(route.id, placeRes);
-        final decoded = PolylinePoints().decodePolyline(polyRes).map((p) => Point(p.latitude, p.longitude)).toList();
-        polyline.sink.add(decoded);
+       final points = await repository.getRoutePoints(route.id);
+        if (points != null) {
+          polyline.sink.add(points);
+        } else {
+          final polyRes = await repository.getRoutePolyline(route.id, placeRes);
+          final decoded = PolylinePoints().decodePolyline(polyRes).map((p) => Point(p.latitude, p.longitude)).toList();
+          polyline.sink.add([decoded]);
+        }
       } else {
-        polyline.sink.add(placeRes.map((p) => Point(p.lat, p.lng)).toList());
+        polyline.sink.add([placeRes.map((p) => Point(p.lat, p.lng)).toList()]);
       }
     } catch (ex) {
-      polyline.sink.add(placeRes.map((p) => Point(p.lat, p.lng)).toList());
+      polyline.sink.add([placeRes.map((p) => Point(p.lat, p.lng)).toList()]);
     }
     places.sink.add(placeRes);
   } 

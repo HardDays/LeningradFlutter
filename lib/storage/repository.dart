@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'dart:math';
 
 import 'package:google_maps_webservice/directions.dart' as dir;
 
@@ -61,7 +62,6 @@ class Repository {
     }
   }
 
-
   Future<List<Place>> getRoutePlaces(int id) async {
     if (!cachedRoutePlaces.containsKey(id)) {
       cachedRoutePlaces[id] = await RoutesProvider.getRoutePlaces(id);
@@ -71,6 +71,11 @@ class Repository {
     }
     return cachedRoutePlaces[id];
   }
+
+  Future<List<List<Point>>> getRoutePoints(int id) async {
+    return await RoutesProvider.getRoutePoints(id);
+  }
+
 
   Future<String> getRoutePolyline(int id, List<Place> places) async {
     if (!cachedPolylines.containsKey(id)) {

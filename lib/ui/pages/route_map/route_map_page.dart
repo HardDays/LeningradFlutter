@@ -43,22 +43,22 @@ class RouteMapPageState extends State<RouteMapPage> {
     bloc.load(widget.route);
   }
 
-  void onMapComplete(GoogleMapController controller, List<Point> places) async {
+  void onMapComplete(GoogleMapController controller, List<Place> places) async {
     mapController = controller;
     await Future.delayed(Duration(seconds: 1));
     centerMap(places);
   }
 
-  void centerMap(List<Point> places) {
+  void centerMap(List<Place> places) {
     double minLat = 1000;
     double minLng = 1000;
     double maxLat = -1000;
     double maxLng = -1000;
     for (final place in places) {
-      minLat = min(minLat, place.x);
-      minLng = min(minLng, place.y);
-      maxLat = max(maxLat, place.x);
-      maxLng = max(maxLng, place.y);
+      minLat = min(minLat, place.lat);
+      minLng = min(minLng, place.lng);
+      maxLat = max(maxLat, place.lat);
+      maxLng = max(maxLng, place.lng);
     }
 
     if (places.length == 1) {
@@ -89,6 +89,26 @@ class RouteMapPageState extends State<RouteMapPage> {
     );
   }
 
+  List<Polyline> buildPolylines(List<List<Point>> points) {
+    List<Polyline> polylines = [];
+    for (int i = 0; i < points.length; i++) {
+      for (int k = 0; k < points[i].length - 1; k++) {
+        polylines.add(
+          Polyline(
+            polylineId: PolylineId(i.toString() + k.toString()),
+            color: AppColors.blue,
+            patterns: [PatternItem.dash(15), PatternItem.gap(10)],
+            points: [
+              LatLng(points[i][k].x, points[i][k].y),
+              LatLng(points[i][k + 1].x, points[i][k + 1].y)
+            ]
+          )
+        );
+      }
+    }
+    return polylines;
+  }
+
   Widget buildBody() {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
@@ -99,7 +119,7 @@ class RouteMapPageState extends State<RouteMapPage> {
           if (snapshot.hasData && snapshot.data.isNotEmpty) {
             return StreamBuilder(
               stream: bloc.polyline.stream,
-              builder: (BuildContext context, AsyncSnapshot<List<Point>> polySnapshot) {
+              builder: (BuildContext context, AsyncSnapshot<List<List<Point>>> polySnapshot) {
                 if (polySnapshot.hasData) {
                   return Container(
                     width: width,
@@ -120,7 +140,7 @@ class RouteMapPageState extends State<RouteMapPage> {
                             //bloc.hideInfoWindow();
                           },
                           onMapCreated: (controller) {
-                            onMapComplete(controller, polySnapshot.data);
+                            onMapComplete(controller, snapshot.data);
                           },
                           markers:  List.generate(snapshot.data.length,
                             (index) { 
@@ -136,20 +156,7 @@ class RouteMapPageState extends State<RouteMapPage> {
                             }
                           ).toSet(),
                           polylines: polySnapshot.hasData ? 
-                          List.generate(polySnapshot.data.length - 1, 
-                            (index) {
-                              return Polyline(
-                                polylineId: PolylineId(index.toString()),
-                                color: AppColors.blue,
-                                //width: 1,
-                                patterns: [PatternItem.dash(15), PatternItem.gap(10)],
-                                points: [
-                                  LatLng(polySnapshot.data[index].x, polySnapshot.data[index].y),
-                                  LatLng(polySnapshot.data[index + 1].x, polySnapshot.data[index + 1].y)
-                                ]
-                              );
-                            }
-                          ).toSet() :
+                          buildPolylines(polySnapshot.data).toSet() :
                           Set()
                         )
                       ]

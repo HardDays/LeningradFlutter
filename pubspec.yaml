@@ -99,6 +99,8 @@ flutter:
     - assets/data/oopt.json
     - assets/data/oopt_images.json
 
+    - assets/data/routes/5.gpx
+
     - assets/data/contacts/index.html
     - assets/data/contacts/css/style.css
     - assets/data/contacts/images/logku_logo.jpg

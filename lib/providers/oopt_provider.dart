@@ -93,9 +93,7 @@ class OoptProvider {
     return result;
   }
 
-
   static String imageLink(int id, int number) {;
     return ooptPath + id.toString() + htmlPath;
   }
-
 }
