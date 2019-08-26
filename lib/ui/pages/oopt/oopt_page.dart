@@ -471,6 +471,7 @@ class OoptPageState extends State<OoptPage> {
             ),
           ),
           buildRules(),
+          widget.oopt.normLinks.length > 0 ?
           Container(
             color: Colors.grey.withOpacity(0.3),
             margin: EdgeInsets.only(top: 10),
@@ -483,7 +484,8 @@ class OoptPageState extends State<OoptPage> {
                 fontWeight: FontWeight.w500
               ),
             ),
-          ),
+          ) :
+          Container(),
           Container(
             padding: EdgeInsets.only(top: 5, bottom: 20, left: 15, right: 15),  
             child: Column(

@@ -83,7 +83,21 @@ class RouteMapPageState extends State<RouteMapPage> {
         centerTitle: true,
         title: Text('Маршрут'),
         actions: <Widget>[
-         
+         InkWell(
+            onTap: () {
+              bloc.changeMapType();
+            },
+            child: Container(
+              color: Colors.transparent,
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(right: 10, top: 5, left: 5, bottom: 5),
+              child: Text(bloc.satelite.value && bloc.satelite.hasValue ? 'Схема' : 'Спутник',
+                style: TextStyle(
+                  color: Colors.white
+                ),
+              )
+            )
+          )
         ]
       )
     );
@@ -121,46 +135,51 @@ class RouteMapPageState extends State<RouteMapPage> {
               stream: bloc.polyline.stream,
               builder: (BuildContext context, AsyncSnapshot<List<List<Point>>> polySnapshot) {
                 if (polySnapshot.hasData) {
-                  return Container(
-                    width: width,
-                    //padding: EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
-                    child: Stack(
-                      children: [ 
-                        GoogleMap(
-                          mapType: MapType.normal,
-                          myLocationEnabled: true,
-                          initialCameraPosition: CameraPosition(
-                            target: LatLng(59.90271, 30.24700),
-                            zoom: 10,
-                          ),
-                          onTap: (p) {
-                            //bloc.hideInfoWindow();
-                          },
-                          onCameraMove: (p) {
-                            //bloc.hideInfoWindow();
-                          },
-                          onMapCreated: (controller) {
-                            onMapComplete(controller, snapshot.data);
-                          },
-                          markers:  List.generate(snapshot.data.length,
-                            (index) { 
-                              return Marker(
-                                markerId: MarkerId(index.toString()),
-                                icon: BitmapDescriptor.fromBytes(Markers().marker(snapshot.data[index].type)),
-                                position: LatLng(snapshot.data[index].lat, snapshot.data[index].lng),
-                                infoWindow: InfoWindow(
-                                  title: snapshot.data[index].name ?? 'Место',
-                                  snippet: snapshot.data[index].description ?? ''
-                                )
-                              );
-                            }
-                          ).toSet(),
-                          polylines: polySnapshot.hasData ? 
-                          buildPolylines(polySnapshot.data).toSet() :
-                          Set()
+                 return StreamBuilder(
+                    stream: bloc.satelite,
+                    builder: (BuildContext context, AsyncSnapshot<bool> sateliteSnapshot) {
+                      return Container(
+                        width: width,
+                        //padding: EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
+                        child: Stack(
+                          children: [
+                            GoogleMap(
+                              mapType: sateliteSnapshot.hasData && sateliteSnapshot.data ? MapType.satellite : MapType.normal,
+                              myLocationEnabled: true,
+                              initialCameraPosition: CameraPosition(
+                                target: LatLng(59.90271, 30.24700),
+                                zoom: 10,
+                              ),
+                              onTap: (p) {
+                                //bloc.hideInfoWindow();
+                              },
+                              onCameraMove: (p) {
+                                //bloc.hideInfoWindow();
+                              },
+                              onMapCreated: (controller) {
+                                onMapComplete(controller, snapshot.data);
+                              },
+                              markers:  List.generate(snapshot.data.length,
+                                (index) {
+                                  return Marker(
+                                    markerId: MarkerId(index.toString()),
+                                    icon: BitmapDescriptor.fromBytes(Markers().marker(snapshot.data[index].type)),
+                                    position: LatLng(snapshot.data[index].lat, snapshot.data[index].lng),
+                                    infoWindow: InfoWindow(
+                                      title: snapshot.data[index].name ?? 'Место',
+                                      snippet: snapshot.data[index].description ?? ''
+                                    )
+                                  );
+                                }
+                              ).toSet(),
+                              polylines: polySnapshot.hasData ?
+                              buildPolylines(polySnapshot.data).toSet() :
+                              Set()
+                            )
+                          ]
                         )
-                      ]
-                    )
+                      );
+                    }
                   );
                 } else {
                   return Container();

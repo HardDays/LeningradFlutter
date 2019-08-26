@@ -174,13 +174,15 @@ class ListPageState extends State<ListPage>  with AutomaticKeepAliveClientMixin 
                                   //   ),
                                   // ),
                                   Padding(padding: EdgeInsets.only(top: 2)),
+                                  oopt.date != null ?
                                   Text('Дата создания: ${DateFormat('dd.MM.yyy').format(oopt.date)}',
                                     style: TextStyle(
                                       color: Colors.black.withOpacity(0.7),
                                       fontSize: 13,
                                       fontWeight: FontWeight.w300
                                     ),
-                                  ),
+                                  ) :
+                                  Container(),
                                   Padding(padding: EdgeInsets.only(top: 2)),
                                   Text('Площадь: ${oopt.square} га',
                                     style: TextStyle(

@@ -480,14 +480,18 @@ flutter:
     - assets/data/oopt_43/area_1.kml
     - assets/data/oopt_43/info.html
     - assets/data/oopt_43/pic_1.jpg
+    - assets/data/oopt_43/pic_2.jpg
     - assets/data/oopt_44/44.jpg
     - assets/data/oopt_44/area_1.kml
     - assets/data/oopt_44/info.html
     - assets/data/oopt_44/pic_1.jpg
+    - assets/data/oopt_44/pic_2.jpg
     - assets/data/oopt_45/42.jpg
     - assets/data/oopt_45/area_1.kml
     - assets/data/oopt_45/info.html
     - assets/data/oopt_45/pic_1.jpg
+    - assets/data/oopt_45/pic_2.jpg
+    - assets/data/oopt_45/pic_3.jpg
     - assets/data/oopt_46/45.jpg
     - assets/data/oopt_46/area_1.kml
     - assets/data/oopt_46/info.html
@@ -536,6 +540,13 @@ flutter:
     - assets/data/oopt_50/info.html
     - assets/data/oopt_50/lo.jpg
     - assets/data/oopt_50/pic_1.jpg
+    - assets/data/oopt_50/pic_2.jpg
+    - assets/data/oopt_50/pic_3.jpg
+    - assets/data/oopt_50/pic_4.jpg
+    - assets/data/oopt_50/pic_5.jpg
+    - assets/data/oopt_50/pic_6.jpg
+    - assets/data/oopt_50/pic_7.jpg
+    - assets/data/oopt_50/pic_8.jpg
     - assets/data/oopt_6/4.jpg
     - assets/data/oopt_6/area_1.kml
     - assets/data/oopt_6/info.html

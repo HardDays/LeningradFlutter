@@ -65,7 +65,7 @@ class Oopt {
       id: json['id'],
       name: json['name'],
       category: json['category'],
-      date: DateTime.parse(json['date']),
+      date: json['date'] != null ? DateTime.parse(json['date']) : null,
       lat: json['lat'],
       lng: json['lng'],
       square: json['square']?.toDouble() ?? 0.0,
