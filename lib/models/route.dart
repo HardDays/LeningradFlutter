@@ -1,5 +1,13 @@
 import 'route_image.dart';
 
+class Point {
+  final double x;
+  final double y;
+  final double angle;
+
+  Point(this.x, this.y, this.angle);
+}
+
 class Route {
   final int id;
   final String name;

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:typed_data';
-import 'dart:math';
 
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -8,7 +7,7 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import '../../resources/markers.dart';
 
 import '../../../models/place.dart';
-import '../../../models/route.dart';
+import '../../../models/route.dart' as r;
 
 import '../../../storage/repository.dart';
 
@@ -18,31 +17,28 @@ class RoutePageBloc {
 
   BehaviorSubject<bool> satelite;
   BehaviorSubject<List<Place>> places;
-  BehaviorSubject<List<List<Point>>> polyline;
+  BehaviorSubject<List<List<r.Point>>> polyline;
 
   RoutePageBloc() {
     satelite = BehaviorSubject<bool>.seeded(false);
     places = BehaviorSubject<List<Place>>();
-    polyline = BehaviorSubject<List<List<Point>>>();
+    polyline = BehaviorSubject<List<List<r.Point>>>();
   }
 
-  void load(Route route) async {
+  void load(r.Route route) async {
     final placeRes = await repository.getRoutePlaces(route.id);
     try {
-      if (placeRes.length > 1) {
-        final points = await repository.getRoutePoints(route.id);
-        if (points != null) {
-          polyline.sink.add(points);
-        } else {
-          final polyRes = await repository.getRoutePolyline(route.id, placeRes);
-          final decoded = PolylinePoints().decodePolyline(polyRes).map((p) => Point(p.latitude, p.longitude)).toList();
-          polyline.sink.add([decoded]);
-        }
+      final points = await repository.getRoutePoints(route.id);
+      if (points != null) {
+        polyline.sink.add(points);
       } else {
-        polyline.sink.add([placeRes.map((p) => Point(p.lat, p.lng)).toList()]);
+        final polyRes = await repository.getRoutePolyline(route.id, placeRes);
+        final decoded = PolylinePoints().decodePolyline(polyRes).map((p) => r.Point(p.latitude, p.longitude, null)).toList();
+        polyline.sink.add([decoded]);
       }
+
     } catch (ex) {
-      polyline.sink.add([placeRes.map((p) => Point(p.lat, p.lng)).toList()]);
+      polyline.sink.add([placeRes.map((p) => r.Point(p.lat, p.lng, null)).toList()]);
     }
     places.sink.add(placeRes);
   } 

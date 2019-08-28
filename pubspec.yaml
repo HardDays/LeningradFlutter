@@ -20,7 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   rxdart: any
-  google_maps_flutter: ^0.5.19+2 
+  google_maps_flutter: ^0.5.20+6
   xml: ^3.2.0
   flutter_inappbrowser: ^1.2.1
   intl: any
@@ -95,11 +95,17 @@ flutter:
     - assets/images/icons/pin_view_place.png
     - assets/images/icons/pin_water.png
     - assets/images/icons/pin_way.png
+    - assets/images/icons/pin_direction.png
 
     - assets/data/oopt.json
     - assets/data/oopt_images.json
 
+    - assets/data/routes/1.gpx
+    - assets/data/routes/2.gpx
+    - assets/data/routes/3.gpx
+    - assets/data/routes/4.gpx
     - assets/data/routes/5.gpx
+    - assets/data/routes/6.gpx
 
     - assets/data/contacts/index.html
     - assets/data/contacts/css/style.css

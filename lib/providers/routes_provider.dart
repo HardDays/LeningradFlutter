@@ -103,7 +103,8 @@ class RoutesProvider {
         for (final point in track.findAllElements('trkpt')) {
           final lat = double.parse(point.getAttribute('lat'));
           final lon = double.parse(point.getAttribute('lon'));
-          current.add(Point(lat, lon));
+         //final ele = double.parse(point.findElements('ele').first.text);
+          current.add(Point(lat, lon, null));
         }
         result.add(current);
       }

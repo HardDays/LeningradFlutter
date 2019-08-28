@@ -43,36 +43,33 @@ class RouteMapPageState extends State<RouteMapPage> {
     bloc.load(widget.route);
   }
 
-  void onMapComplete(GoogleMapController controller, List<Place> places) async {
+  void onMapComplete(GoogleMapController controller, List<List<r.Point>> places) async {
     mapController = controller;
     await Future.delayed(Duration(seconds: 1));
     centerMap(places);
   }
 
-  void centerMap(List<Place> places) {
+  void centerMap(List<List<r.Point>> places) {
     double minLat = 1000;
     double minLng = 1000;
     double maxLat = -1000;
     double maxLng = -1000;
-    for (final place in places) {
-      minLat = min(minLat, place.lat);
-      minLng = min(minLng, place.lng);
-      maxLat = max(maxLat, place.lat);
-      maxLng = max(maxLng, place.lng);
+    for (final pp in places) {
+      for (final place in pp) {
+        minLat = min(minLat, place.x);
+        minLng = min(minLng, place.y);
+        maxLat = max(maxLat, place.x);
+        maxLng = max(maxLng, place.y);
+      }
     }
-
-    if (places.length == 1) {
-      mapController.moveCamera(CameraUpdate.newLatLngZoom(LatLng(maxLat, maxLng), 12));
-    } else {
-      mapController.moveCamera(
-        CameraUpdate.newLatLngBounds(
-          LatLngBounds(
-            northeast: LatLng(maxLat, maxLng), 
-            southwest: LatLng(minLat, minLng)
-          ), 
-        50)
-      );
-    }
+    mapController.moveCamera(
+      CameraUpdate.newLatLngBounds(
+        LatLngBounds(
+          northeast: LatLng(maxLat, maxLng),
+          southwest: LatLng(minLat, minLng)
+        ),
+      50)
+    );
   }
 
   PreferredSize buildAppBar() {
@@ -103,13 +100,13 @@ class RouteMapPageState extends State<RouteMapPage> {
     );
   }
 
-  List<Polyline> buildPolylines(List<List<Point>> points) {
+  List<Polyline> buildPolylines(List<List<r.Point>> points) {
     List<Polyline> polylines = [];
     for (int i = 0; i < points.length; i++) {
       for (int k = 0; k < points[i].length - 1; k++) {
         polylines.add(
           Polyline(
-            polylineId: PolylineId(i.toString() + k.toString()),
+            polylineId: PolylineId('poly' + i.toString() + k.toString()),
             color: AppColors.blue,
             patterns: [PatternItem.dash(15), PatternItem.gap(10)],
             points: [
@@ -123,6 +120,41 @@ class RouteMapPageState extends State<RouteMapPage> {
     return polylines;
   }
 
+  List<Marker> buildMarkers(List<Place> places, List<List<r.Point>> points) {
+    final markers = List.generate(places.length,
+      (index) {
+        return Marker(
+          anchor: Offset(0.5, 0.5),
+          markerId: MarkerId(index.toString()),
+          icon: BitmapDescriptor.fromBytes(Markers().marker(places[index].type)),
+          position: LatLng(places[index].lat, places[index].lng),
+          infoWindow: InfoWindow(
+            title: places[index].name ?? 'Место',
+            snippet: places[index].description ?? ''
+          )
+        );
+      }
+    );
+    int cur = 0;
+    for (int i = 0; i < points.length; i++) {
+      for (int k = 0; k < points[i].length; k++) {
+        if (cur % 5 == 0 && points[i][k].angle != null) {
+          markers.add(
+            Marker(
+              anchor: Offset(0.5, 0.5),
+              markerId: MarkerId('direction' + i.toString() + k.toString()),
+              icon: BitmapDescriptor.fromBytes(Markers().marker('direction')),
+              position: LatLng(points[i][k].x, points[i][k].y),
+              rotation: points[i][k].angle
+            )
+          );
+        }
+        cur++;
+      }
+    }
+    return markers;
+  }
+
   Widget buildBody() {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
@@ -130,10 +162,10 @@ class RouteMapPageState extends State<RouteMapPage> {
       child: StreamBuilder(
         stream: bloc.places.stream,
         builder: (BuildContext context, AsyncSnapshot<List<Place>> snapshot) {
-          if (snapshot.hasData && snapshot.data.isNotEmpty) {
+          if (snapshot.hasData) {
             return StreamBuilder(
               stream: bloc.polyline.stream,
-              builder: (BuildContext context, AsyncSnapshot<List<List<Point>>> polySnapshot) {
+              builder: (BuildContext context, AsyncSnapshot<List<List<r.Point>>> polySnapshot) {
                 if (polySnapshot.hasData) {
                  return StreamBuilder(
                     stream: bloc.satelite,
@@ -157,21 +189,9 @@ class RouteMapPageState extends State<RouteMapPage> {
                                 //bloc.hideInfoWindow();
                               },
                               onMapCreated: (controller) {
-                                onMapComplete(controller, snapshot.data);
+                                onMapComplete(controller, polySnapshot.data);
                               },
-                              markers:  List.generate(snapshot.data.length,
-                                (index) {
-                                  return Marker(
-                                    markerId: MarkerId(index.toString()),
-                                    icon: BitmapDescriptor.fromBytes(Markers().marker(snapshot.data[index].type)),
-                                    position: LatLng(snapshot.data[index].lat, snapshot.data[index].lng),
-                                    infoWindow: InfoWindow(
-                                      title: snapshot.data[index].name ?? 'Место',
-                                      snippet: snapshot.data[index].description ?? ''
-                                    )
-                                  );
-                                }
-                              ).toSet(),
+                              markers: buildMarkers(snapshot.data ?? [], polySnapshot.data ?? []).toSet(),
                               polylines: polySnapshot.hasData ?
                               buildPolylines(polySnapshot.data).toSet() :
                               Set()

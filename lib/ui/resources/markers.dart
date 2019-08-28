@@ -31,6 +31,7 @@ class Markers {
     mapper[OoptCategory.naturalMonument] = await createMarker('assets/images/icons/pin_2.png');
     mapper[OoptCategory.wildlifeSanctuary] = await createMarker('assets/images/icons/pin_3.png');
     mapper['fire_call'] = await createMarker('assets/images/icons/pin_4.png', width: 200, height: 200);
+    mapper['direction'] = await createMarker('assets/images/icons/pin_direction.png', width: 50, height: 50);
 
     for (final cat in PlaceType.all) {
       mapper[cat] = await createMarker('assets/images/icons/pin_$cat.png');

@@ -43,36 +43,34 @@ class RoutePageState extends State<RoutePage> {
     bloc.load(widget.route);
   }
 
-  void onMapComplete(GoogleMapController controller, List<Place> places) async {
+  void onMapComplete(GoogleMapController controller, List<List<r.Point>> places) async {
     mapController = controller;
     await Future.delayed(Duration(seconds: 1));
     centerMap(places);
   }
 
-  void centerMap(List<Place> places) {
+  void centerMap(List<List<r.Point>> places) {
     double minLat = 1000;
     double minLng = 1000;
     double maxLat = -1000;
     double maxLng = -1000;
-    for (final place in places) {
-      minLat = min(minLat, place.lat);
-      minLng = min(minLng, place.lng);
-      maxLat = max(maxLat, place.lat);
-      maxLng = max(maxLng, place.lng);
+    for (final pp in places) {
+      for (final place in pp) {
+        minLat = min(minLat, place.x);
+        minLng = min(minLng, place.y);
+        maxLat = max(maxLat, place.x);
+        maxLng = max(maxLng, place.y);
+      }
     }
 
-    if (places.length == 1) {
-      mapController.moveCamera(CameraUpdate.newLatLngZoom(LatLng(maxLat, maxLng), 12));
-    } else {
-      mapController.moveCamera(
-        CameraUpdate.newLatLngBounds(
-          LatLngBounds(
-            northeast: LatLng(maxLat, maxLng), 
-            southwest: LatLng(minLat, minLng)
-          ), 
-        50)
-      );
-    }
+    mapController.moveCamera(
+      CameraUpdate.newLatLngBounds(
+        LatLngBounds(
+          northeast: LatLng(maxLat, maxLng),
+          southwest: LatLng(minLat, minLng)
+        ),
+      50)
+    );
   }
 
   PreferredSize buildAppBar() {
@@ -118,7 +116,7 @@ class RoutePageState extends State<RoutePage> {
     );
   }
 
-  List<Polyline> buildPolylines(List<List<Point>> points) {
+  List<Polyline> buildPolylines(List<List<r.Point>> points) {
     List<Polyline> polylines = [];
     for (int i = 0; i < points.length; i++) {
       for (int k = 0; k < points[i].length - 1; k++) {
@@ -167,10 +165,10 @@ class RoutePageState extends State<RoutePage> {
           StreamBuilder(
             stream: bloc.places.stream,
             builder: (BuildContext context, AsyncSnapshot<List<Place>> snapshot) {
-              if (snapshot.hasData && snapshot.data.isNotEmpty) {
+              if (snapshot.hasData) {
                 return StreamBuilder(
                   stream: bloc.polyline.stream,
-                  builder: (BuildContext context, AsyncSnapshot<List<List<Point>>> polySnapshot) {
+                  builder: (BuildContext context, AsyncSnapshot<List<List<r.Point>>> polySnapshot) {
                     if (polySnapshot.hasData) {
                       return Container(
                         width: width,
@@ -199,7 +197,7 @@ class RoutePageState extends State<RoutePage> {
                                     //bloc.hideInfoWindow();
                                   },
                                   onMapCreated: (controller) {
-                                    onMapComplete(controller, snapshot.data);
+                                    onMapComplete(controller, polySnapshot.data);
                                   },
                                   markers:  List.generate(snapshot.data.length,
                                     (index) { 
